@@ -107,8 +107,17 @@ def hkl_possibilities(wavelength, lattice_constant, angle):
                     hkl.append([h, k, l]) 
     return hkl
 
+def get_FWHM(stddev):
+    return 2 * abs(stddev) * np.sqrt(2 * np.log(2))
+
+def get_crystallite_size(maxangle, FWHM, wavelength, kappa):
+    return kappa * wavelength / ((FWHM / 180 * np.pi) * unp.cos(maxangle / 180 * np.pi))
+
 # X-ray Wavelength
 xray_wavelength = 1.5406
+
+# Crystallite constant
+kappa = 0.9
 
 # Read csv as dataframe
 datasource = ["../data/FOEP_A5-1.csv", "../data/FOEP_A5-2.csv"]
@@ -116,13 +125,13 @@ df = [pd.read_csv(datasource[0]), pd.read_csv(datasource[1])]
 
 # 8 plots
 fig, axs = plt.subplots(4, 2, figsize = (20, 20))
-plt.subplots_adjust(left = 0.03, bottom = 0.03, top = 0.94, right = 0.97, wspace = 0.1, hspace = 0.1)
+plt.subplots_adjust(left = 0.03, bottom = 0.03, top = 0.94, right = 0.97, wspace = 0.1, hspace = 0.3)
 
 
 ### MgO(200) ###
 
-# Sample = [2 * platform angle, intensity, detect angle, guassian initial guess, optimal parameters, optimal covariance, hkl, lattice constant, angle peak with uncertainty, plane distance]
-MgO200 = [0, 0, 0, 0, 0, 0, [2, 0, 0], 0, 0, 0]
+# Sample = [2 * platform angle, intensity, detect angle, guassian initial guess, optimal parameters, optimal covariance, hkl, lattice constant, angle peak with uncertainty, plane distance, FWHM, crystallite size]
+MgO200 = [0, 0, 0, 0, 0, 0, [2, 0, 0], 0, 0, 0, 0, 0]
 digit1 = np.copy(np.array(df[0]["MgO200_Theta_plat-1"]))
 digit2 = np.copy(np.array(df[0]["MgO200_Theta_plat-2"]))
 digit3 = np.copy(np.array(df[0]["MgO200_Theta_plat-3"]))
@@ -150,7 +159,7 @@ MgO200[3] = [90, 43.6, 0.7]
 # optimized parameters, optimized covariance
 MgO200[4], MgO200[5] = curve_fit(gaussian, MgO200[0], MgO200[1], p0=MgO200[3])
 
-# 2 theta peak
+# theta peak
 MgO200[8] = ufloat_format(uct.ufloat(MgO200[4][1], 2 * abs(MgO200[4][2])) / 2)
 
 # Lattice Constant
@@ -159,10 +168,18 @@ MgO200[7] = get_lattice_constant(xray_wavelength, MgO200[8], *MgO200[6])
 # Plane Distance
 MgO200[9] = get_plane_distance(MgO200[7], *MgO200[6])
 
+# FWHM
+MgO200[10] = get_FWHM(MgO200[4][2] / 2)
+
+# Crystallite size
+MgO200[11] = get_crystallite_size(MgO200[8], MgO200[10], xray_wavelength, kappa)
+
 # Reporting
 print("The lattice constant of MgO is", f'{MgO200[7]:.2f}', "angstrom.")
 print("The peak value of MgO(200) occurs at theta =", MgO200[8], "degrees.")
-print("The distance between planes of MgO(200) is", MgO200[9], "angstrom.\n")
+print("The distance between planes of MgO(200) is", MgO200[9], "angstrom.")
+print(f"The FWHM of MgO(200) is {MgO200[10]:.3f} degrees.")
+print(f"The crystallite size of MgO(200) is {MgO200[11]:.2f} angstrom.\n")
 
 # Plots
 axs[0][0].scatter(MgO200[0], MgO200[1], label="$MgO(200)$ Data")
@@ -185,7 +202,7 @@ axs[0][0].legend()
 
 ### Si(400) ###
 
-Si400 = [0, 0, 0, 0, 0, 0, [4, 0, 0], 0, 0, 0]
+Si400 = [0, 0, 0, 0, 0, 0, [4, 0, 0], 0, 0, 0, 0, 0]
 digit1 = np.copy(np.array(df[0]["Si400_Theta_plat-1"]))
 digit2 = np.copy(np.array(df[0]["Si400_Theta_plat-2"]))
 digit3 = np.copy(np.array(df[0]["Si400_Theta_plat-3"]))
@@ -201,9 +218,13 @@ Si400[4], Si400[5] = curve_fit(gaussian, Si400[0], Si400[1], p0=Si400[3])
 Si400[8] = ufloat_format(uct.ufloat(Si400[4][1], 2 * abs(Si400[4][2])) / 2)
 Si400[7] = get_lattice_constant(xray_wavelength, Si400[8], *Si400[6])
 Si400[9] = get_plane_distance(Si400[7], *Si400[6])
+Si400[10] = get_FWHM(Si400[4][2] / 2)
+Si400[11] = get_crystallite_size(Si400[8], Si400[10], xray_wavelength, kappa)
 print("The lattice constant of Si is", f'{Si400[7]:.2f}', "angstrom.")
 print("The peak value of Si(400) occurs at theta =", Si400[8], "degrees.")
-print("The distance between planes of Si(400) is", Si400[9], "angstrom.\n")
+print("The distance between planes of Si(400) is", Si400[9], "angstrom.")
+print(f"The FWHM of Si(400) is {Si400[10]:.3f} degrees.")
+print(f"The crystallite size of Si(400) is {Si400[11]:.2f} angstrom.\n")
 axs[0][1].scatter(Si400[0], Si400[1], label="$Si(400)$ Data")
 x_space = np.linspace(Si400[0][0], Si400[0][-1], 100)
 axs[0][1].plot(x_space, gaussian(x_space, *Si400[4]), color="red", label="$Si(400)$ Fitted Gaussian")
@@ -218,7 +239,7 @@ axs[0][1].legend()
 
 ### LaAlO3(100) ###
 
-LaAlO3100 = [0, 0, 0, 0, 0, 0, [1, 0, 0], 0, 0, 0]
+LaAlO3100 = [0, 0, 0, 0, 0, 0, [1, 0, 0], 0, 0, 0, 0, 0]
 digit1 = np.copy(np.array(df[0]["LaAlO3100_Theta_plat-1"]))
 digit2 = np.copy(np.array(df[0]["LaAlO3100_Theta_plat-2"]))
 digit3 = np.copy(np.array(df[0]["LaAlO3100_Theta_plat-3"]))
@@ -234,9 +255,13 @@ LaAlO3100[4], LaAlO3100[5] = curve_fit(gaussian, LaAlO3100[0], LaAlO3100[1], p0=
 LaAlO3100[8] = ufloat_format(uct.ufloat(LaAlO3100[4][1], 2 * abs(LaAlO3100[4][2])) / 2)
 LaAlO3100[7] = get_lattice_constant(xray_wavelength, LaAlO3100[8], *LaAlO3100[6])
 LaAlO3100[9] = get_plane_distance(LaAlO3100[7], *LaAlO3100[6])
+LaAlO3100[10] = get_FWHM(LaAlO3100[4][2] / 2)
+LaAlO3100[11] = get_crystallite_size(LaAlO3100[8], LaAlO3100[10], xray_wavelength, kappa)
 print("The lattice constant of LaAlO3 is", f'{LaAlO3100[7]:.2f}', "angstrom.")
 print("The peak value of LaAlO3(100) occurs at theta =", LaAlO3100[8], "degrees.")
-print("The distance between planes of LaAlO3(100) is", LaAlO3100[9], "angstrom.\n")
+print("The distance between planes of LaAlO3(100) is", LaAlO3100[9], "angstrom.")
+print(f"The FWHM of LaAlO3(100) is {LaAlO3100[10]:.3f} degrees.")
+print(f"The crystallite size of LaAlO3(100) is {LaAlO3100[11]:.2f} angstrom.\n")
 axs[1][0].scatter(LaAlO3100[0], LaAlO3100[1], label="$LaAlO_3(100)$ Data")
 x_space = np.linspace(LaAlO3100[0][0], LaAlO3100[0][-1], 100)
 axs[1][0].plot(x_space, gaussian(x_space, *LaAlO3100[4]), color="red", label="$LaAlO_3(100)$ Fitted Gaussian")
@@ -252,7 +277,7 @@ axs[1][0].legend()
 
 ### LaAlO3(200) ###
 
-LaAlO3200 = [0, 0, 0, 0, 0, 0, [2, 0, 0], 0, 0, 0]
+LaAlO3200 = [0, 0, 0, 0, 0, 0, [2, 0, 0], 0, 0, 0, 0, 0]
 digit1 = np.copy(np.array(df[0]["LaAlO3200_Theta_plat-1"]))
 digit2 = np.copy(np.array(df[0]["LaAlO3200_Theta_plat-2"]))
 digit3 = np.copy(np.array(df[0]["LaAlO3200_Theta_plat-3"]))
@@ -268,9 +293,13 @@ LaAlO3200[4], LaAlO3200[5] = curve_fit(gaussian, LaAlO3200[0], LaAlO3200[1], p0=
 LaAlO3200[8] = ufloat_format(uct.ufloat(LaAlO3200[4][1], 2 * abs(LaAlO3200[4][2])) / 2)
 LaAlO3200[7] = get_lattice_constant(xray_wavelength, LaAlO3200[8], *LaAlO3200[6])
 LaAlO3200[9] = get_plane_distance(LaAlO3200[7], *LaAlO3200[6])
+LaAlO3200[10] = get_FWHM(LaAlO3200[4][2] / 2)
+LaAlO3200[11] = get_crystallite_size(LaAlO3200[8], LaAlO3200[10], xray_wavelength, kappa)
 print("The lattice constant of LaAlO3 is", f'{LaAlO3200[7]:.2f}', "angstrom.")
 print("The peak value of LaAlO3(200) occurs at theta =", LaAlO3200[8], "degrees.")
-print("The distance between planes of LaAlO3(200) is", LaAlO3200[9], "angstrom.\n")
+print("The distance between planes of LaAlO3(200) is", LaAlO3200[9], "angstrom.")
+print(f"The FWHM of LaAlO3(300) is {LaAlO3200[10]:.3f} degrees.")
+print(f"The crystallite size of LaAlO3(200) is {LaAlO3200[11]:.2f} angstrom.\n")
 axs[1][1].scatter(LaAlO3200[0], LaAlO3200[1], label="$LaAlO_3(200)$ Data")
 x_space = np.linspace(LaAlO3200[0][0], LaAlO3200[0][-1], 100)
 axs[1][1].plot(x_space, gaussian(x_space, *LaAlO3200[4]), color="red", label="$LaAlO_3(200)$ Fitted Gaussian")
@@ -285,7 +314,7 @@ axs[1][1].legend()
 
 ### LaAlO3(300) ###
 
-LaAlO3300 = [0, 0, 0, 0, 0, 0, [3, 0, 0], 0, 0, 0]
+LaAlO3300 = [0, 0, 0, 0, 0, 0, [3, 0, 0], 0, 0, 0, 0, 0]
 digit1 = np.copy(np.array(df[0]["LaAlO3300_Theta_plat-1"]))
 digit2 = np.copy(np.array(df[0]["LaAlO3300_Theta_plat-2"]))
 digit3 = np.copy(np.array(df[0]["LaAlO3300_Theta_plat-3"]))
@@ -301,9 +330,13 @@ LaAlO3300[4], LaAlO3300[5] = curve_fit(gaussian, LaAlO3300[0], LaAlO3300[1], p0=
 LaAlO3300[8] = ufloat_format(uct.ufloat(LaAlO3300[4][1], 2 * abs(LaAlO3300[4][2])) / 2)
 LaAlO3300[7] = get_lattice_constant(xray_wavelength, LaAlO3300[8], *LaAlO3300[6])
 LaAlO3300[9] = get_plane_distance(LaAlO3300[7], *LaAlO3300[6])
+LaAlO3300[10] = get_FWHM(LaAlO3300[4][2] / 2)
+LaAlO3300[11] = get_crystallite_size(LaAlO3300[8], LaAlO3300[10], xray_wavelength, kappa)
 print("The lattice constant of LaAlO3 is", f'{LaAlO3300[7]:.2f}', "angstrom.")
 print("The peak value of LaAlO3(300) occurs at theta =", LaAlO3300[8], "degrees.")
-print("The distance between planes of LaAlO3(300) is", LaAlO3300[9], "angstrom.\n")
+print("The distance between planes of LaAlO3(300) is", LaAlO3300[9], "angstrom.")
+print(f"The FWHM of LaAlO3(300) is {LaAlO3300[10]:.3f} degrees.")
+print(f"The crystallite size of LaAlO3(300) is {LaAlO3300[11]:.2f} angstrom.\n")
 axs[2][0].scatter(LaAlO3300[0], LaAlO3300[1], label="$LaAlO_3(300)$ Data")
 x_space = np.linspace(LaAlO3300[0][0], LaAlO3300[0][-1], 100)
 axs[2][0].plot(x_space, gaussian(x_space, *LaAlO3300[4]), color="red", label="$LaAlO_3(300)$ Fitted Gaussian")
@@ -318,7 +351,7 @@ axs[2][0].legend()
 
 ### Potassium Alum ###
 
-KAS = [0, 0, 0, 0, 0, 0, [3, 3, 3], 0, 0, 0]
+KAS = [0, 0, 0, 0, 0, 0, [3, 3, 3], 0, 0, 0, 0, 0]
 digit1 = np.copy(np.array(df[1]["KAS_Theta_plat-1"]))
 digit2 = np.copy(np.array(df[1]["KAS_Theta_plat-2"]))
 digit3 = np.copy(np.array(df[1]["KAS_Theta_plat-3"]))
@@ -339,9 +372,13 @@ for i in range(len(KAS_hkl)):
 KAS[8] = ufloat_format(uct.ufloat(KAS[4][1], 2 * abs(KAS[4][2])) / 2)
 KAS[7] = get_lattice_constant(xray_wavelength, KAS[8], *KAS[6])
 KAS[9] = get_plane_distance(KAS[7], *KAS[6])
+KAS[10] = get_FWHM(KAS[4][2] / 2)
+KAS[11] = get_crystallite_size(KAS[8], KAS[10], xray_wavelength, kappa)
 print("\nThe lattice constant of Potassium Alum is", f'{KAS[7]:.2f}', "angstrom.")
 print("The peak value of Potassium Alum(333) occurs at theta =", KAS[8], "degrees.")
-print("The distance between planes of Potassium Alum(333) is", KAS[9], "angstrom.\n")
+print("The distance between planes of Potassium Alum(333) is", KAS[9], "angstrom.")
+print(f"The FWHM of Potassium Alum(333) is {KAS[10]:.3f} degrees.")
+print(f"The crystallite size of Potassium Alum(333) is {KAS[11]:.2f} angstrom.\n")
 axs[2][1].scatter(KAS[0], KAS[1], label="Potassium Alum Data")
 x_space = np.linspace(KAS[0][0], KAS[0][-1], 100)
 axs[2][1].plot(x_space, gaussian(x_space, *KAS[4]), color="red", label="Potassium Alum Fitted Gaussian")
@@ -356,7 +393,7 @@ axs[2][1].legend()
 
 ### Si(440) ###
 
-Si440 = [0, 0, 0, 0, 0, 0, [4, 4, 0], 0, 0, 0]
+Si440 = [0, 0, 0, 0, 0, 0, [4, 4, 0], 0, 0, 0, 0, 0]
 digit1 = np.copy(np.array(df[1]["Si440_Theta_plat-1"]))
 digit2 = np.copy(np.array(df[1]["Si440_Theta_plat-2"]))
 digit3 = np.copy(np.array(df[1]["Si440_Theta_plat-3"]))
@@ -375,12 +412,16 @@ Si440[8] = ufloat_format(uct.ufloat(Si440[4][1], 2 * abs(Si440[4][2])) / 2 + 45)
 
 Si440[7] = get_lattice_constant(xray_wavelength, Si440[8], *Si440[6])
 Si440[9] = get_plane_distance(Si440[7], *Si440[6])
+Si440[10] = get_FWHM(Si440[4][2] / 2)
+Si440[11] = get_crystallite_size(Si440[8], Si440[10], xray_wavelength, kappa)
 print("The lattice constant of Si is", f'{Si440[7]:.2f}', "angstrom.")
 
 # Original data, deduct the 45 degrees back
 print("The peak value of Si(440) occurs at theta =", Si440[8] - 45, "degrees.")
 
-print("The distance between planes of Si(440) is", Si440[9], "angstrom.\n")
+print("The distance between planes of Si(440) is", Si440[9], "angstrom.")
+print(f"The FWHM of Si(440) is {Si440[10]:.3f} degrees.")
+print(f"The crystallite size of Si(440) is {Si440[11]:.2f} angstrom.\n")
 axs[3][0].scatter(Si440[0], Si440[1], label="$Si(440)$ Data")
 x_space = np.linspace(Si440[0][0], Si440[0][-1], 100)
 axs[3][0].plot(x_space, gaussian(x_space, *Si440[4]), color="red", label="$Si(440)$ Fitted Gaussian")
@@ -395,7 +436,7 @@ axs[3][0].legend()
 
 ### Si(404) ###
 
-Si404 = [0, 0, 0, 0, 0, 0, [4, 0, 4], 0, 0, 0]
+Si404 = [0, 0, 0, 0, 0, 0, [4, 0, 4], 0, 0, 0, 0, 0]
 digit1 = np.copy(np.array(df[1]["Si404_Theta_plat-1"]))
 digit2 = np.copy(np.array(df[1]["Si404_Theta_plat-2"]))
 digit3 = np.copy(np.array(df[1]["Si404_Theta_plat-3"]))
@@ -414,12 +455,16 @@ Si404[8] = ufloat_format(uct.ufloat(Si404[4][1], 2 * abs(Si404[4][2])) / 2 + 45)
 
 Si404[7] = get_lattice_constant(xray_wavelength, Si404[8], *Si404[6])
 Si404[9] = get_plane_distance(Si404[7], *Si404[6])
+Si404[10] = get_FWHM(Si404[4][2] / 2)
+Si404[11] = get_crystallite_size(Si404[8], Si404[10], xray_wavelength, kappa)
 print("The lattice constant of Si is", f'{Si404[7]:.2f}', "angstrom.")
 
 # Original data, deduct the 45 degrees back
 print("The peak value of Si(404) occurs at theta =", Si404[8] - 45, "degrees.")
 
-print("The distance between planes of Si(404) is", Si404[9], "angstrom.\n")
+print("The distance between planes of Si(404) is", Si404[9], "angstrom.")
+print(f"The FWHM of Si(404) is {Si404[10]:.3f} degrees.")
+print(f"The crystallite size of Si(404) is {Si404[11]:.2f} angstrom.\n")
 axs[3][1].scatter(Si404[0], Si404[1], label="$Si(404)$ Data")
 x_space = np.linspace(Si404[0][0], Si404[0][-1], 100)
 axs[3][1].plot(x_space, gaussian(x_space, *Si404[4]), color="red", label="$Si(404)$ Fitted Gaussian")
