@@ -1,0 +1,4 @@
+ICD(mA),uICD(mA),VBA(mV),uVBA(mV),IBC(mA),uIBC(mA),VDA(mV),uVDA(mV),IBD(mA),uIBD(mA),VAC+(mV),uVAC+(mV),VAC-(mV),uVAC-(mV),Pressure(Torr),Power(W),Time(min),5min Pressure(Torr),Board Temperature©,Heater Power(W),Vacuum Pressure(Torr),DC-bias,Bottom Pressure,RCDAB(omega),RBCDA(omega),Rs,d,rho,B(T),RBDAC+,RBDAC-,Delta RBDAC,mu,n
+0.5,0.0005,4.2,0.00225,0.5,0.0005,1.987,0.00212,0.5,0.0005,0.0074,2.00E-03,-0.0033,0.002,8.00E-03,75,20,6.00E-02,28.5,0,8.95E-03,-12,2.09E-03,,,,,,0.37,,,,,
+1,0.001,8.42,0.00251,1,0.001,3.977,0.00224,1,0.001,0.0115,2.00E-03,-0.0105,0.002,,,,,51.1,0,8.97E-03,-12,,,,,,,,,,,,
+1.5,0.0015,12.62,0.00276,1.5,0.0015,5.969,0.00236,1.5,0.0015,0.0166,2.00E-03,-0.015,0.002,,,,,,,,,,,,,,,,,,,,

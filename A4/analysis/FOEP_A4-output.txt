@@ -1,0 +1,12 @@
+Critical point: 83.69 K, Time index: 467
+Critical point: 90.91 K, Time index: 654
+YBCO RCDBA : 0.001395+/-4e-06 Omega
+YBCO RBCDA : 0.0002431+/-2e-06 Omega
+NBCO RCDBA : 1.6604+/-0.004 Omega
+NBCO RBCDA : 0.15321+/-0.00037 Omega
+YBCO RCDBA/RBCDA = 5.74+/-0.05
+YBCO f = 0.7971806
+YBCO rho = 0.009588+/-0.000026 (Omega mm)
+NBCO RCDBA/RBCDA = 10.84+/-0.04
+NBCO f = 0.6855196
+NBCO rho = 7.664+/-0.017 (Omega mm)

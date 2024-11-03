@@ -1,0 +1,39 @@
+The lattice constant of MgO is 4.15+/-0.02 angstrom.
+The peak value of MgO(200) occurs at theta = 21.78+/-0.12 degrees.
+The distance between planes of MgO(200) is 2.076+/-0.011 angstrom.
+
+The lattice constant of Si is 5.44+/-0.01 angstrom.
+The peak value of Si(400) occurs at theta = 34.52+/-0.06 degrees.
+The distance between planes of Si(400) is 1.3593+/-0.0020 angstrom.
+
+The lattice constant of LaAlO3 is 3.71+/-0.01 angstrom.
+The peak value of LaAlO3(100) occurs at theta = 11.97+/-0.04 degrees.
+The distance between planes of LaAlO3(100) is 3.713+/-0.013 angstrom.
+
+The lattice constant of LaAlO3 is 3.76+/-0.01 angstrom.
+The peak value of LaAlO3(200) occurs at theta = 24.20+/-0.06 degrees.
+The distance between planes of LaAlO3(200) is 1.879+/-0.005 angstrom.
+
+The lattice constant of LaAlO3 is 3.77+/-0.01 angstrom.
+The peak value of LaAlO3(300) occurs at theta = 37.76+/-0.06 degrees.
+The distance between planes of LaAlO3(300) is 1.2579+/-0.0017 angstrom.
+
+The possibilities of Miller indices of Potassium Alum are
+
+[0, 1, 5]
+[1, 1, 5]
+[1, 3, 4]
+[3, 3, 3]
+
+The lattice constant of Potassium Alum is 12.27+/-0.03 angstrom.
+The peak value of Potassium Alum(333) occurs at theta = 19.04+/-0.05 degrees.
+The distance between planes of Potassium Alum(333) is 2.362+/-0.006 angstrom.
+
+The lattice constant of Si is 5.41+/-0.01 angstrom.
+The peak value of Si(440) occurs at theta = 8.61+/-0.09 degrees.
+The distance between planes of Si(440) is 0.9569+/-0.0011 angstrom.
+
+The lattice constant of Si is 5.43+/-0.01 angstrom.
+The peak value of Si(404) occurs at theta = 8.35+/-0.08 degrees.
+The distance between planes of Si(404) is 0.9601+/-0.0010 angstrom.
+

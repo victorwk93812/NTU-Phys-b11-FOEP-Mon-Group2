@@ -1,0 +1,15 @@
+First week datasize: 19621
+Second week datasize: 15663 
+
+First week curie temperature time index on increasing temperature: 4056
+Second week curie temperature time index on increasing temperature: 2165 
+
+First week curie temperature time index on decreasing temperature: 8631
+Second week curie temperature time index on decreasing temperature: 5520 
+
+First week curie temperature on increasing temperature: 335.444427 Celsius
+First week curie temperature on decreasing temperature: 345.863983 Celsius 
+
+Second week curie temperature on increasing temperature: 321.845062 Celsius
+Second week curie temperature on decreasing temperature: 343.535919 Celsius 
+
