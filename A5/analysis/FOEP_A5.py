@@ -125,6 +125,8 @@ df = [pd.read_csv(datasource[0]), pd.read_csv(datasource[1])]
 
 # 8 plots
 fig, axs = plt.subplots(4, 2, figsize = (20, 20))
+fig1, axs1 = plt.subplots(2, 2, figsize = (20, 10))
+fig2, axs2 = plt.subplots(2, 2, figsize = (20, 10))
 plt.subplots_adjust(left = 0.03, bottom = 0.03, top = 0.94, right = 0.97, wspace = 0.1, hspace = 0.3)
 
 
@@ -185,20 +187,28 @@ print(f"The crystallite size of MgO(200) is {MgO200[11]:.2f} angstrom.\n")
 axs[0][0].scatter(MgO200[0], MgO200[1], label="$MgO(200)$ Data")
 x_space = np.linspace(MgO200[0][0], MgO200[0][-1], 100)
 axs[0][0].plot(x_space, gaussian(x_space, *MgO200[4]), color="red", label="$MgO(200)$ Fitted Gaussian")
+axs1[0][0].scatter(MgO200[0], MgO200[1], label="$MgO(200)$ Data")
+x_space = np.linspace(MgO200[0][0], MgO200[0][-1], 100)
+axs1[0][0].plot(x_space, gaussian(x_space, *MgO200[4]), color="red", label="$MgO(200)$ Fitted Gaussian")
 
 # Labelling x, y
 axs[0][0].set_xlabel(r"$2 \theta (^\circ)$")
 axs[0][0].set_ylabel(r"Intensity ($\mu$A)")
+axs1[0][0].set_xlabel(r"$2 \theta (^\circ)$")
+axs1[0][0].set_ylabel(r"Intensity ($\mu$A)")
 
 # Equation Display
 lx, rx, ly, ry = *axs[0][0].get_xlim(), *axs[0][0].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 axs[0][0].set_title(r"$MgO(200)$ Peak X-Ray Diffraction")
+axs1[0][0].set_title(r"$MgO(200)$ Peak X-Ray Diffraction")
 equation = f'$y = {MgO200[4][0]:.2f} e^{{-\\frac{{(x - {MgO200[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {MgO200[4][2]:.2f}^{{2}}}}}}$'
 axs[0][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
+axs1[0][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 
 # Legend
 axs[0][0].legend()
+axs1[0][0].legend()
 
 ### Si(400) ###
 
@@ -226,16 +236,23 @@ print("The distance between planes of Si(400) is", Si400[9], "angstrom.")
 print(f"The FWHM of Si(400) is {Si400[10]:.3f} degrees.")
 print(f"The crystallite size of Si(400) is {Si400[11]:.2f} angstrom.\n")
 axs[0][1].scatter(Si400[0], Si400[1], label="$Si(400)$ Data")
+axs1[0][1].scatter(Si400[0], Si400[1], label="$Si(400)$ Data")
 x_space = np.linspace(Si400[0][0], Si400[0][-1], 100)
 axs[0][1].plot(x_space, gaussian(x_space, *Si400[4]), color="red", label="$Si(400)$ Fitted Gaussian")
+axs1[0][1].plot(x_space, gaussian(x_space, *Si400[4]), color="red", label="$Si(400)$ Fitted Gaussian")
 axs[0][1].set_xlabel(r"$2 \theta (^\circ)$")
+axs1[0][1].set_xlabel(r"$2 \theta (^\circ)$")
 axs[0][1].set_ylabel(r"Intensity ($\mu$A)")
+axs1[0][1].set_ylabel(r"Intensity ($\mu$A)")
 axs[0][1].set_title(r"$Si(400)$ Peak X-Ray Diffraction")
+axs1[0][1].set_title(r"$Si(400)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[0][1].get_xlim(), *axs[0][1].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 equation = f'$y = {Si400[4][0]:.2f} e^{{-\\frac{{(x - {Si400[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {Si400[4][2]:.2f}^{{2}}}}}}$'
 axs[0][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
+axs1[0][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[0][1].legend()
+axs1[0][1].legend()
 
 ### LaAlO3(100) ###
 
@@ -263,17 +280,23 @@ print("The distance between planes of LaAlO3(100) is", LaAlO3100[9], "angstrom."
 print(f"The FWHM of LaAlO3(100) is {LaAlO3100[10]:.3f} degrees.")
 print(f"The crystallite size of LaAlO3(100) is {LaAlO3100[11]:.2f} angstrom.\n")
 axs[1][0].scatter(LaAlO3100[0], LaAlO3100[1], label="$LaAlO_3(100)$ Data")
+axs1[1][0].scatter(LaAlO3100[0], LaAlO3100[1], label="$LaAlO_3(100)$ Data")
 x_space = np.linspace(LaAlO3100[0][0], LaAlO3100[0][-1], 100)
 axs[1][0].plot(x_space, gaussian(x_space, *LaAlO3100[4]), color="red", label="$LaAlO_3(100)$ Fitted Gaussian")
+axs1[1][0].plot(x_space, gaussian(x_space, *LaAlO3100[4]), color="red", label="$LaAlO_3(100)$ Fitted Gaussian")
 axs[1][0].set_xlabel(r"$2 \theta (^\circ)$")
+axs1[1][0].set_xlabel(r"$2 \theta (^\circ)$")
 axs[1][0].set_ylabel(r"Intensity ($\mu$A)")
+axs1[1][0].set_ylabel(r"Intensity ($\mu$A)")
 axs[1][0].set_title(r"$LaAlO_3(100)$ Peak X-Ray Diffraction")
+axs1[1][0].set_title(r"$LaAlO_3(100)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[1][0].get_xlim(), *axs[1][0].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 equation = f'$y = {LaAlO3100[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3100[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {LaAlO3100[4][2]:.2f}^{{2}}}}}}$'
 axs[1][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
-
+axs1[1][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[1][0].legend()
+axs1[1][0].legend()
 
 ### LaAlO3(200) ###
 
@@ -301,16 +324,23 @@ print("The distance between planes of LaAlO3(200) is", LaAlO3200[9], "angstrom."
 print(f"The FWHM of LaAlO3(300) is {LaAlO3200[10]:.3f} degrees.")
 print(f"The crystallite size of LaAlO3(200) is {LaAlO3200[11]:.2f} angstrom.\n")
 axs[1][1].scatter(LaAlO3200[0], LaAlO3200[1], label="$LaAlO_3(200)$ Data")
+axs1[1][1].scatter(LaAlO3200[0], LaAlO3200[1], label="$LaAlO_3(200)$ Data")
 x_space = np.linspace(LaAlO3200[0][0], LaAlO3200[0][-1], 100)
 axs[1][1].plot(x_space, gaussian(x_space, *LaAlO3200[4]), color="red", label="$LaAlO_3(200)$ Fitted Gaussian")
+axs1[1][1].plot(x_space, gaussian(x_space, *LaAlO3200[4]), color="red", label="$LaAlO_3(200)$ Fitted Gaussian")
 axs[1][1].set_xlabel(r"$2 \theta (^\circ)$")
+axs1[1][1].set_xlabel(r"$2 \theta (^\circ)$")
 axs[1][1].set_ylabel(r"Intensity ($\mu$A)")
+axs1[1][1].set_ylabel(r"Intensity ($\mu$A)")
 axs[1][1].set_title(r"$LaAlO_3(200)$ Peak X-Ray Diffraction")
+axs1[1][1].set_title(r"$LaAlO_3(200)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[1][1].get_xlim(), *axs[1][1].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 equation = f'$y = {LaAlO3200[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3200[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {LaAlO3200[4][2]:.2f}^{{2}}}}}}$'
 axs[1][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
+axs1[1][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[1][1].legend()
+axs1[1][1].legend()
 
 ### LaAlO3(300) ###
 
@@ -338,16 +368,23 @@ print("The distance between planes of LaAlO3(300) is", LaAlO3300[9], "angstrom."
 print(f"The FWHM of LaAlO3(300) is {LaAlO3300[10]:.3f} degrees.")
 print(f"The crystallite size of LaAlO3(300) is {LaAlO3300[11]:.2f} angstrom.\n")
 axs[2][0].scatter(LaAlO3300[0], LaAlO3300[1], label="$LaAlO_3(300)$ Data")
+axs2[0][0].scatter(LaAlO3300[0], LaAlO3300[1], label="$LaAlO_3(300)$ Data")
 x_space = np.linspace(LaAlO3300[0][0], LaAlO3300[0][-1], 100)
 axs[2][0].plot(x_space, gaussian(x_space, *LaAlO3300[4]), color="red", label="$LaAlO_3(300)$ Fitted Gaussian")
+axs2[0][0].plot(x_space, gaussian(x_space, *LaAlO3300[4]), color="red", label="$LaAlO_3(300)$ Fitted Gaussian")
 axs[2][0].set_xlabel(r"$2 \theta (^\circ)$")
+axs2[0][0].set_xlabel(r"$2 \theta (^\circ)$")
 axs[2][0].set_ylabel(r"Intensity ($\mu$A)")
+axs2[0][0].set_ylabel(r"Intensity ($\mu$A)")
 axs[2][0].set_title(r"$LaAlO_3(300)$ Peak X-Ray Diffraction")
+axs2[0][0].set_title(r"$LaAlO_3(300)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[2][0].get_xlim(), *axs[2][0].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 equation = f'$y = {LaAlO3300[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3300[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {LaAlO3300[4][2]:.2f}^{{2}}}}}}$'
 axs[2][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
+axs2[0][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[2][0].legend()
+axs2[0][0].legend()
 
 ### Potassium Alum ###
 
@@ -380,16 +417,23 @@ print("The distance between planes of Potassium Alum(333) is", KAS[9], "angstrom
 print(f"The FWHM of Potassium Alum(333) is {KAS[10]:.3f} degrees.")
 print(f"The crystallite size of Potassium Alum(333) is {KAS[11]:.2f} angstrom.\n")
 axs[2][1].scatter(KAS[0], KAS[1], label="Potassium Alum Data")
+axs2[0][1].scatter(KAS[0], KAS[1], label="Potassium Alum Data")
 x_space = np.linspace(KAS[0][0], KAS[0][-1], 100)
 axs[2][1].plot(x_space, gaussian(x_space, *KAS[4]), color="red", label="Potassium Alum Fitted Gaussian")
+axs2[0][1].plot(x_space, gaussian(x_space, *KAS[4]), color="red", label="Potassium Alum Fitted Gaussian")
 axs[2][1].set_xlabel(r"$2 \theta (^\circ)$")
+axs2[0][1].set_xlabel(r"$2 \theta (^\circ)$")
 axs[2][1].set_ylabel(r"Intensity ($\mu$A)")
+axs2[0][1].set_ylabel(r"Intensity ($\mu$A)")
 axs[2][1].set_title(r"Potassium Alum(333) Peak X-Ray Diffraction")
+axs2[0][1].set_title(r"Potassium Alum(333) Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[2][1].get_xlim(), *axs[2][1].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 equation = f'$y = {KAS[4][0]:.2f} e^{{-\\frac{{(x - {KAS[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {KAS[4][2]:.2f}^{{2}}}}}}$'
 axs[2][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
+axs2[0][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[2][1].legend()
+axs2[0][1].legend()
 
 ### Si(440) ###
 
@@ -423,16 +467,23 @@ print("The distance between planes of Si(440) is", Si440[9], "angstrom.")
 print(f"The FWHM of Si(440) is {Si440[10]:.3f} degrees.")
 print(f"The crystallite size of Si(440) is {Si440[11]:.2f} angstrom.\n")
 axs[3][0].scatter(Si440[0], Si440[1], label="$Si(440)$ Data")
+axs2[1][0].scatter(Si440[0], Si440[1], label="$Si(440)$ Data")
 x_space = np.linspace(Si440[0][0], Si440[0][-1], 100)
 axs[3][0].plot(x_space, gaussian(x_space, *Si440[4]), color="red", label="$Si(440)$ Fitted Gaussian")
+axs2[1][0].plot(x_space, gaussian(x_space, *Si440[4]), color="red", label="$Si(440)$ Fitted Gaussian")
 axs[3][0].set_xlabel(r"$2 \theta (^\circ)$")
+axs2[1][0].set_xlabel(r"$2 \theta (^\circ)$")
 axs[3][0].set_ylabel(r"Intensity ($\mu$A)")
+axs2[1][0].set_ylabel(r"Intensity ($\mu$A)")
 axs[3][0].set_title(r"$Si(440)$ Peak X-Ray Diffraction")
+axs2[1][0].set_title(r"$Si(440)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[3][0].get_xlim(), *axs[3][0].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 equation = f'$y = {Si440[4][0]:.2f} e^{{-\\frac{{(x - {Si440[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {Si440[4][2]:.2f}^{{2}}}}}}$'
 axs[3][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
+axs2[1][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[3][0].legend()
+axs2[1][0].legend()
 
 ### Si(404) ###
 
@@ -466,18 +517,29 @@ print("The distance between planes of Si(404) is", Si404[9], "angstrom.")
 print(f"The FWHM of Si(404) is {Si404[10]:.3f} degrees.")
 print(f"The crystallite size of Si(404) is {Si404[11]:.2f} angstrom.\n")
 axs[3][1].scatter(Si404[0], Si404[1], label="$Si(404)$ Data")
+axs2[1][1].scatter(Si404[0], Si404[1], label="$Si(404)$ Data")
 x_space = np.linspace(Si404[0][0], Si404[0][-1], 100)
 axs[3][1].plot(x_space, gaussian(x_space, *Si404[4]), color="red", label="$Si(404)$ Fitted Gaussian")
+axs2[1][1].plot(x_space, gaussian(x_space, *Si404[4]), color="red", label="$Si(404)$ Fitted Gaussian")
 axs[3][1].set_xlabel(r"$2 \theta (^\circ)$")
+axs2[1][1].set_xlabel(r"$2 \theta (^\circ)$")
 axs[3][1].set_ylabel(r"Intensity ($\mu$A)")
+axs2[1][1].set_ylabel(r"Intensity ($\mu$A)")
 axs[3][1].set_title(r"$Si(404)$ Peak X-Ray Diffraction")
+axs2[1][1].set_title(r"$Si(404)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[3][1].get_xlim(), *axs[3][1].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 equation = f'$y = {Si404[4][0]:.2f} e^{{-\\frac{{(x - {Si404[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {Si404[4][2]:.2f}^{{2}}}}}}$'
 axs[3][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
+axs2[1][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[3][1].legend()
+axs2[1][1].legend()
 
 # Figure title, saving and demo
 fig.suptitle("X-ray Diffractions", fontsize = 30, y = 0.98)
 fig.savefig("../pics/X-ray_Diffractions.png")
+fig1.suptitle("X-ray Diffractions-1", fontsize = 30, y = 0.98)
+fig1.savefig("../pics/X-ray_Diffractions-1.png")
+fig2.suptitle("X-ray Diffractions-2", fontsize = 30, y = 0.98)
+fig2.savefig("../pics/X-ray_Diffractions-2.png")
 plt.show()
