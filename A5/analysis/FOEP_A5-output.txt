@@ -1,32 +1,32 @@
 The lattice constant of MgO is 4.15+/-0.02 angstrom.
 The peak value of MgO(200) occurs at theta = 21.78+/-0.12 degrees.
 The distance between planes of MgO(200) is 2.076+/-0.011 angstrom.
-The FWHM of MgO(200) is 0.135 degrees.
-The crystallite size of MgO(200) is 631.47+/-0.53 angstrom.
+The FWHM of MgO(200) is 0.271 degrees.
+The crystallite size of MgO(200) is 329.77+/-0.28 angstrom.
 
 The lattice constant of Si is 5.44+/-0.01 angstrom.
 The peak value of Si(400) occurs at theta = 34.52+/-0.06 degrees.
 The distance between planes of Si(400) is 1.3593+/-0.0020 angstrom.
-The FWHM of Si(400) is 0.069 degrees.
-The crystallite size of Si(400) is 1395.16+/-0.99 angstrom.
+The FWHM of Si(400) is 0.138 degrees.
+The crystallite size of Si(400) is 728.58+/-0.52 angstrom.
 
 The lattice constant of LaAlO3 is 3.71+/-0.01 angstrom.
 The peak value of LaAlO3(100) occurs at theta = 11.97+/-0.04 degrees.
 The distance between planes of LaAlO3(100) is 3.713+/-0.013 angstrom.
-The FWHM of LaAlO3(100) is 0.051 degrees.
-The crystallite size of LaAlO3(100) is 1606.80+/-0.26 angstrom.
+The FWHM of LaAlO3(100) is 0.101 degrees.
+The crystallite size of LaAlO3(100) is 839.11+/-0.13 angstrom.
 
 The lattice constant of LaAlO3 is 3.76+/-0.01 angstrom.
 The peak value of LaAlO3(200) occurs at theta = 24.20+/-0.06 degrees.
 The distance between planes of LaAlO3(200) is 1.879+/-0.005 angstrom.
-The FWHM of LaAlO3(300) is 0.073 degrees.
-The crystallite size of LaAlO3(200) is 1196.03+/-0.58 angstrom.
+The FWHM of LaAlO3(300) is 0.146 degrees.
+The crystallite size of LaAlO3(200) is 624.59+/-0.30 angstrom.
 
 The lattice constant of LaAlO3 is 3.77+/-0.01 angstrom.
 The peak value of LaAlO3(300) occurs at theta = 37.76+/-0.06 degrees.
 The distance between planes of LaAlO3(300) is 1.2579+/-0.0017 angstrom.
-The FWHM of LaAlO3(300) is 0.071 degrees.
-The crystallite size of LaAlO3(300) is 1422.22+/-1.17 angstrom.
+The FWHM of LaAlO3(300) is 0.141 degrees.
+The crystallite size of LaAlO3(300) is 742.71+/-0.61 angstrom.
 
 The possibilities of Miller indices of Potassium Alum are
 
@@ -38,18 +38,18 @@ The possibilities of Miller indices of Potassium Alum are
 The lattice constant of Potassium Alum is 12.27+/-0.03 angstrom.
 The peak value of Potassium Alum(333) occurs at theta = 19.04+/-0.05 degrees.
 The distance between planes of Potassium Alum(333) is 2.362+/-0.006 angstrom.
-The FWHM of Potassium Alum(333) is 0.063 degrees.
-The crystallite size of Potassium Alum(333) is 1324.01+/-0.43 angstrom.
+The FWHM of Potassium Alum(333) is 0.127 degrees.
+The crystallite size of Potassium Alum(333) is 691.43+/-0.22 angstrom.
 
 The lattice constant of Si is 5.41+/-0.01 angstrom.
 The peak value of Si(440) occurs at theta = 8.61+/-0.09 degrees.
 The distance between planes of Si(440) is 0.9569+/-0.0011 angstrom.
-The FWHM of Si(440) is 0.109 degrees.
-The crystallite size of Si(440) is 1230.36+/-2.71 angstrom.
+The FWHM of Si(440) is 0.218 degrees.
+The crystallite size of Si(440) is 642.52+/-1.42 angstrom.
 
 The lattice constant of Si is 5.43+/-0.01 angstrom.
 The peak value of Si(404) occurs at theta = 8.35+/-0.08 degrees.
 The distance between planes of Si(404) is 0.9601+/-0.0010 angstrom.
-The FWHM of Si(404) is 0.094 degrees.
-The crystallite size of Si(404) is 1411.93+/-2.68 angstrom.
+The FWHM of Si(404) is 0.189 degrees.
+The crystallite size of Si(404) is 737.34+/-1.40 angstrom.
 

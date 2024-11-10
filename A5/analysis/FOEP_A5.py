@@ -117,7 +117,7 @@ def get_crystallite_size(maxangle, FWHM, wavelength, kappa):
 xray_wavelength = 1.5406
 
 # Crystallite constant
-kappa = 0.9
+kappa = 0.94
 
 # Read csv as dataframe
 datasource = ["../data/FOEP_A5-1.csv", "../data/FOEP_A5-2.csv"]
@@ -171,7 +171,7 @@ MgO200[7] = get_lattice_constant(xray_wavelength, MgO200[8], *MgO200[6])
 MgO200[9] = get_plane_distance(MgO200[7], *MgO200[6])
 
 # FWHM
-MgO200[10] = get_FWHM(MgO200[4][2] / 2)
+MgO200[10] = get_FWHM(MgO200[4][2])
 
 # Crystallite size
 MgO200[11] = get_crystallite_size(MgO200[8], MgO200[10], xray_wavelength, kappa)
@@ -202,7 +202,7 @@ lx, rx, ly, ry = *axs[0][0].get_xlim(), *axs[0][0].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
 axs[0][0].set_title(r"$MgO(200)$ Peak X-Ray Diffraction")
 axs1[0][0].set_title(r"$MgO(200)$ Peak X-Ray Diffraction")
-equation = f'$y = {MgO200[4][0]:.2f} e^{{-\\frac{{(x - {MgO200[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {MgO200[4][2]:.2f}^{{2}}}}}}$'
+equation = f'$y = {MgO200[4][0]:.2f} e^{{-\\frac{{(x - {MgO200[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {abs(MgO200[4][2]):.2f}^{{2}}}}}}$'
 axs[0][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs1[0][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 
@@ -228,7 +228,7 @@ Si400[4], Si400[5] = curve_fit(gaussian, Si400[0], Si400[1], p0=Si400[3])
 Si400[8] = ufloat_format(uct.ufloat(Si400[4][1], 2 * abs(Si400[4][2])) / 2)
 Si400[7] = get_lattice_constant(xray_wavelength, Si400[8], *Si400[6])
 Si400[9] = get_plane_distance(Si400[7], *Si400[6])
-Si400[10] = get_FWHM(Si400[4][2] / 2)
+Si400[10] = get_FWHM(Si400[4][2])
 Si400[11] = get_crystallite_size(Si400[8], Si400[10], xray_wavelength, kappa)
 print("The lattice constant of Si is", f'{Si400[7]:.2f}', "angstrom.")
 print("The peak value of Si(400) occurs at theta =", Si400[8], "degrees.")
@@ -248,7 +248,7 @@ axs[0][1].set_title(r"$Si(400)$ Peak X-Ray Diffraction")
 axs1[0][1].set_title(r"$Si(400)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[0][1].get_xlim(), *axs[0][1].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
-equation = f'$y = {Si400[4][0]:.2f} e^{{-\\frac{{(x - {Si400[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {Si400[4][2]:.2f}^{{2}}}}}}$'
+equation = f'$y = {Si400[4][0]:.2f} e^{{-\\frac{{(x - {Si400[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {abs(Si400[4][2]):.2f}^{{2}}}}}}$'
 axs[0][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs1[0][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[0][1].legend()
@@ -272,7 +272,7 @@ LaAlO3100[4], LaAlO3100[5] = curve_fit(gaussian, LaAlO3100[0], LaAlO3100[1], p0=
 LaAlO3100[8] = ufloat_format(uct.ufloat(LaAlO3100[4][1], 2 * abs(LaAlO3100[4][2])) / 2)
 LaAlO3100[7] = get_lattice_constant(xray_wavelength, LaAlO3100[8], *LaAlO3100[6])
 LaAlO3100[9] = get_plane_distance(LaAlO3100[7], *LaAlO3100[6])
-LaAlO3100[10] = get_FWHM(LaAlO3100[4][2] / 2)
+LaAlO3100[10] = get_FWHM(LaAlO3100[4][2])
 LaAlO3100[11] = get_crystallite_size(LaAlO3100[8], LaAlO3100[10], xray_wavelength, kappa)
 print("The lattice constant of LaAlO3 is", f'{LaAlO3100[7]:.2f}', "angstrom.")
 print("The peak value of LaAlO3(100) occurs at theta =", LaAlO3100[8], "degrees.")
@@ -292,7 +292,7 @@ axs[1][0].set_title(r"$LaAlO_3(100)$ Peak X-Ray Diffraction")
 axs1[1][0].set_title(r"$LaAlO_3(100)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[1][0].get_xlim(), *axs[1][0].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
-equation = f'$y = {LaAlO3100[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3100[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {LaAlO3100[4][2]:.2f}^{{2}}}}}}$'
+equation = f'$y = {LaAlO3100[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3100[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {abs(LaAlO3100[4][2]):.2f}^{{2}}}}}}$'
 axs[1][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs1[1][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[1][0].legend()
@@ -316,7 +316,7 @@ LaAlO3200[4], LaAlO3200[5] = curve_fit(gaussian, LaAlO3200[0], LaAlO3200[1], p0=
 LaAlO3200[8] = ufloat_format(uct.ufloat(LaAlO3200[4][1], 2 * abs(LaAlO3200[4][2])) / 2)
 LaAlO3200[7] = get_lattice_constant(xray_wavelength, LaAlO3200[8], *LaAlO3200[6])
 LaAlO3200[9] = get_plane_distance(LaAlO3200[7], *LaAlO3200[6])
-LaAlO3200[10] = get_FWHM(LaAlO3200[4][2] / 2)
+LaAlO3200[10] = get_FWHM(LaAlO3200[4][2])
 LaAlO3200[11] = get_crystallite_size(LaAlO3200[8], LaAlO3200[10], xray_wavelength, kappa)
 print("The lattice constant of LaAlO3 is", f'{LaAlO3200[7]:.2f}', "angstrom.")
 print("The peak value of LaAlO3(200) occurs at theta =", LaAlO3200[8], "degrees.")
@@ -336,7 +336,7 @@ axs[1][1].set_title(r"$LaAlO_3(200)$ Peak X-Ray Diffraction")
 axs1[1][1].set_title(r"$LaAlO_3(200)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[1][1].get_xlim(), *axs[1][1].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
-equation = f'$y = {LaAlO3200[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3200[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {LaAlO3200[4][2]:.2f}^{{2}}}}}}$'
+equation = f'$y = {LaAlO3200[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3200[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {abs(LaAlO3200[4][2]):.2f}^{{2}}}}}}$'
 axs[1][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs1[1][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[1][1].legend()
@@ -360,7 +360,7 @@ LaAlO3300[4], LaAlO3300[5] = curve_fit(gaussian, LaAlO3300[0], LaAlO3300[1], p0=
 LaAlO3300[8] = ufloat_format(uct.ufloat(LaAlO3300[4][1], 2 * abs(LaAlO3300[4][2])) / 2)
 LaAlO3300[7] = get_lattice_constant(xray_wavelength, LaAlO3300[8], *LaAlO3300[6])
 LaAlO3300[9] = get_plane_distance(LaAlO3300[7], *LaAlO3300[6])
-LaAlO3300[10] = get_FWHM(LaAlO3300[4][2] / 2)
+LaAlO3300[10] = get_FWHM(LaAlO3300[4][2])
 LaAlO3300[11] = get_crystallite_size(LaAlO3300[8], LaAlO3300[10], xray_wavelength, kappa)
 print("The lattice constant of LaAlO3 is", f'{LaAlO3300[7]:.2f}', "angstrom.")
 print("The peak value of LaAlO3(300) occurs at theta =", LaAlO3300[8], "degrees.")
@@ -380,7 +380,7 @@ axs[2][0].set_title(r"$LaAlO_3(300)$ Peak X-Ray Diffraction")
 axs2[0][0].set_title(r"$LaAlO_3(300)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[2][0].get_xlim(), *axs[2][0].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
-equation = f'$y = {LaAlO3300[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3300[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {LaAlO3300[4][2]:.2f}^{{2}}}}}}$'
+equation = f'$y = {LaAlO3300[4][0]:.2f} e^{{-\\frac{{(x - {LaAlO3300[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {abs(LaAlO3300[4][2]):.2f}^{{2}}}}}}$'
 axs[2][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs2[0][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[2][0].legend()
@@ -409,7 +409,7 @@ for i in range(len(KAS_hkl)):
 KAS[8] = ufloat_format(uct.ufloat(KAS[4][1], 2 * abs(KAS[4][2])) / 2)
 KAS[7] = get_lattice_constant(xray_wavelength, KAS[8], *KAS[6])
 KAS[9] = get_plane_distance(KAS[7], *KAS[6])
-KAS[10] = get_FWHM(KAS[4][2] / 2)
+KAS[10] = get_FWHM(KAS[4][2])
 KAS[11] = get_crystallite_size(KAS[8], KAS[10], xray_wavelength, kappa)
 print("\nThe lattice constant of Potassium Alum is", f'{KAS[7]:.2f}', "angstrom.")
 print("The peak value of Potassium Alum(333) occurs at theta =", KAS[8], "degrees.")
@@ -429,7 +429,7 @@ axs[2][1].set_title(r"Potassium Alum(333) Peak X-Ray Diffraction")
 axs2[0][1].set_title(r"Potassium Alum(333) Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[2][1].get_xlim(), *axs[2][1].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
-equation = f'$y = {KAS[4][0]:.2f} e^{{-\\frac{{(x - {KAS[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {KAS[4][2]:.2f}^{{2}}}}}}$'
+equation = f'$y = {KAS[4][0]:.2f} e^{{-\\frac{{(x - {KAS[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {abs(KAS[4][2]):.2f}^{{2}}}}}}$'
 axs[2][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs2[0][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[2][1].legend()
@@ -456,7 +456,7 @@ Si440[8] = ufloat_format(uct.ufloat(Si440[4][1], 2 * abs(Si440[4][2])) / 2 + 45)
 
 Si440[7] = get_lattice_constant(xray_wavelength, Si440[8], *Si440[6])
 Si440[9] = get_plane_distance(Si440[7], *Si440[6])
-Si440[10] = get_FWHM(Si440[4][2] / 2)
+Si440[10] = get_FWHM(Si440[4][2])
 Si440[11] = get_crystallite_size(Si440[8], Si440[10], xray_wavelength, kappa)
 print("The lattice constant of Si is", f'{Si440[7]:.2f}', "angstrom.")
 
@@ -479,7 +479,7 @@ axs[3][0].set_title(r"$Si(440)$ Peak X-Ray Diffraction")
 axs2[1][0].set_title(r"$Si(440)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[3][0].get_xlim(), *axs[3][0].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
-equation = f'$y = {Si440[4][0]:.2f} e^{{-\\frac{{(x - {Si440[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {Si440[4][2]:.2f}^{{2}}}}}}$'
+equation = f'$y = {Si440[4][0]:.2f} e^{{-\\frac{{(x - {Si440[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {abs(Si440[4][2]):.2f}^{{2}}}}}}$'
 axs[3][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs2[1][0].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[3][0].legend()
@@ -506,7 +506,7 @@ Si404[8] = ufloat_format(uct.ufloat(Si404[4][1], 2 * abs(Si404[4][2])) / 2 + 45)
 
 Si404[7] = get_lattice_constant(xray_wavelength, Si404[8], *Si404[6])
 Si404[9] = get_plane_distance(Si404[7], *Si404[6])
-Si404[10] = get_FWHM(Si404[4][2] / 2)
+Si404[10] = get_FWHM(Si404[4][2])
 Si404[11] = get_crystallite_size(Si404[8], Si404[10], xray_wavelength, kappa)
 print("The lattice constant of Si is", f'{Si404[7]:.2f}', "angstrom.")
 
@@ -529,7 +529,7 @@ axs[3][1].set_title(r"$Si(404)$ Peak X-Ray Diffraction")
 axs2[1][1].set_title(r"$Si(404)$ Peak X-Ray Diffraction")
 lx, rx, ly, ry = *axs[3][1].get_xlim(), *axs[3][1].get_ylim()
 dx, dy = (rx - lx), (ry - ly)
-equation = f'$y = {Si404[4][0]:.2f} e^{{-\\frac{{(x - {Si404[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {Si404[4][2]:.2f}^{{2}}}}}}$'
+equation = f'$y = {Si404[4][0]:.2f} e^{{-\\frac{{(x - {Si404[4][1]:.2f})^{{2}} }}{{ 2 \\cdot {abs(Si404[4][2]):.2f}^{{2}}}}}}$'
 axs[3][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs2[1][1].text(lx + 0.5 * dx, ry - 0.5 * dy, equation, verticalalignment = 'center', horizontalalignment = 'center', fontsize = 16, bbox = {'facecolor': 'white'})
 axs[3][1].legend()
