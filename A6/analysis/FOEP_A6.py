@@ -113,6 +113,69 @@ def two_arrays_to_latex_table(x, y, xname, yname):
             print(y[i], r"\\")
     print(r'\end{tabular}')
 
+### Newton's Method ###
+
+ntnumberlist = [2, 3, 6, 7]
+ntdatasource = [f"../data/Newton_T{x}.csv" for x in ntnumberlist]
+ntdf = [pd.read_csv(datsrc) for datsrc in ntdatasource]
+nttime = [np.array(df["Time(s)"]) for df in ntdf]
+nttemp = [np.array(df[f"Temperature{x}(C)"]) for x, df in zip(ntnumberlist, ntdf)]
+# print(ntdf[3])
+# print(nttime[1])
+
+# Newton Plots
+ntmergefig, ntmergeaxs= plt.subplots()
+for i in range(4):
+    ntmergeaxs.plot(nttime[i], nttemp[i], label = f"Newton T{ntnumberlist[i]}")
+ntmergeaxs.legend()
+plt.show()
+# ntsepfig, ntsepaxs = plt.subplots()
+
+### Angstrom's Method ###
+angsmatname = ["Material 1", "Material 2"]
+angsnumberlist = [1, 2, 7, 8]
+angsdatasource = [f"../data/Angstrom_T{x}.csv" for x in angsnumberlist]
+angsdf = [pd.read_csv(datsrc) for datsrc in angsdatasource]
+angstime = [np.array(df["Time(s)"]) for df in angsdf]
+angstemp = [np.array(df[f"Temperature{x}(C)"]) for x, df in zip(angsnumberlist, angsdf)]
+# print(angsdf[3])
+# print(angstime[1])
+
+# Angstrom Plots
+angsfigs, angsaxss = [0, 0], [0, 0]
+for i in range(2):
+    angsfigs[i], angsaxss[i] = plt.subplots()
+for i in range(4):
+    angsaxss[i // 2].plot(angstime[i], angstemp[i], label = f"Angstrom T{angsnumberlist[i]}")
+for i in range(2):
+    angsaxss[i].legend()
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # nom, std = ufloat_align_error_precision(resistance[0][0], 2)
 # print(repr(ufloat_format(uct.ufloat(2.35847357835, 0.000032483848))))
 # two_arrays_to_latex_table(uctarray1, uctarray2, name1, name2)
