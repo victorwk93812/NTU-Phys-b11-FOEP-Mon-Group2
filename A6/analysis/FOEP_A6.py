@@ -128,11 +128,12 @@ ntmergefig, ntmergeaxs= plt.subplots()
 for i in range(4):
     ntmergeaxs.plot(nttime[i], nttemp[i], label = f"Newton T{ntnumberlist[i]}")
 ntmergeaxs.legend()
+ntmergefig.savefig("../pics/Newton_Method.png")
 plt.show()
 # ntsepfig, ntsepaxs = plt.subplots()
 
 ### Angstrom's Method ###
-angsmatname = ["Material 1", "Material 2"]
+angsmatname = ["Material1", "Material2"]
 angsnumberlist = [1, 2, 7, 8]
 angsdatasource = [f"../data/Angstrom_T{x}.csv" for x in angsnumberlist]
 angsdf = [pd.read_csv(datsrc) for datsrc in angsdatasource]
@@ -149,6 +150,7 @@ for i in range(4):
     angsaxss[i // 2].plot(angstime[i], angstemp[i], label = f"Angstrom T{angsnumberlist[i]}")
 for i in range(2):
     angsaxss[i].legend()
+    angsfigs[i].savefig(f"../pics/Angstrom-{angsmatname[i]}.png")
 plt.show()
 
 
