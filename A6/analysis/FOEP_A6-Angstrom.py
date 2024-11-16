@@ -256,6 +256,7 @@ for i in range(2):
     Sifreqpeak[i] = uct.ufloat(freqpeak, freqstep / 2)
     print(f"Si trial {Sitrial[i]} index of peak in frequency array: {Siamppeakind[i]}.")
     print(f"Si trial {Sitrial[i]} peak frequency: {ufloat_print_format(Sifreqpeak[i])} Hz.")
+print()
 # print("Si frequency peaks of trial 1 and 2 (Hz):")
 # print(Sifreqpeak, '\n')
 

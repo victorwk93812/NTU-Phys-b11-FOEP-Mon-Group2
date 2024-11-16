@@ -82,6 +82,7 @@ Si trial 1 index of peak in frequency array: 8.
 Si trial 1 peak frequency: 0.0350(22) Hz.
 Si trial 2 index of peak in frequency array: 13.
 Si trial 2 peak frequency: 0.0332(13) Hz.
+
 Bi2Te3 40s Frequency array length: 523.
 
 Bi2Te3 40s T7 FFT Amplitude Array (First 30 Terms)
