@@ -219,13 +219,14 @@ for i in range(2):
     Sifftsig[i] = [Sifftsig[i][j][posind[j]] for j in range(2)]
     # Amplitude array
     amp = [np.abs(sig) * 2 / sigsize for sig in Sifftsig[i]]
+    phase = [np.angle(sig) for sig in Sifftsig[i]]
     for j in range(2):
         print(f"Si Trial {Sitrial[i]} T{endpts[j][0]} FFT Amplitude Array (First 30 Terms)")
         print(amp[j][:30])
         print(Sisigfreq[i][j][:30])
+        print(phase[j][:30])
     # print(amp)
     # Phase array
-    phase = [np.angle(sig) for sig in Sifftsig[i]]
     Sifftaxs[i].plot(Sisigfreq[i][0], amp[0], color = 'blue', label = "Si T2 FFT")
     Sifftaxs[i].plot(Sisigfreq[i][0], amp[1], color = 'yellow', label = "Si T1 FFT")
     Sifftaxs[i].grid()
@@ -271,6 +272,7 @@ for i in range(3):
             print(f"Bi2Te3 {Bi2Te3time[index]}s T{endpts[k][1]} FFT Amplitude Array (First 30 Terms)")
             print(amp[k][:30])
             print(Bi2Te3sigfreq[index][k][:30])
+            print(phase[k][:30])
         # Phase array
         phase = [np.angle(sig) for sig in Bi2Te3fftsig[index]]
         Bi2Te3fftaxs[i][j].plot(Bi2Te3sigfreq[index][0], amp[0], color = 'blue', label = "Bi2Te3 T7 FFT")
@@ -291,25 +293,3 @@ for i in range(2):
 print(Bi2Te3freqpeak)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# nom, std = ufloat_align_error_precision(resistance[0][0], 2)
-# print(repr(ufloat_format(uct.ufloat(2.35847357835, 0.000032483848))))
-# two_arrays_to_latex_table(uctarray1, uctarray2, name1, name2)

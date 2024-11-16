@@ -1,0 +1,8 @@
+Time constant of Si is 24.58 s.
+
+Time constant of Brass is 39.22 s.
+
+Time constant of Al is 53.09 s.
+
+Time constant of Bi2Te3 is 122.91 s.
+

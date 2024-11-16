@@ -135,10 +135,21 @@ T = [[np.array(df[f"{mat[i]}DeltaT{trd[j]}(C)"]) for j in range(2)] for i in ran
 # Voltage array (mV), T[i][j]: Material mat[i], j:increasing, decreasing
 V = [[np.array(df[f"{mat[i]}DeltaV{trd[j]}(mV)"]) for j in range(2)] for i in range(2)]
 S = [[- linear_regression(T[i][j], V[i][j])[0] for j in range(2)] for i in range(2)]
+interception = [[linear_regression(T[i][j], V[i][j])[1] for j in range(2)] for i in range(2)]
+fig, axs = plt.subplots(2, 2, figsize = (10, 10))
 for i in range(2):
     for j in range(2):
         # print(f"Seeback coefficient of {mat[i]} in temperature {fulltrd[j]} is {ufloat_print_format(S[i][j])} mV/K.\n")
         print(f"Seeback coefficient of {mat[i]} in temperature {fulltrd[j]} is {S[i][j]} mV/K.\n")
+        Tsample = np.linspace(T[i][j][0], T[i][j][-1], 100)
+        fitcurve = (- S[i][j].n) * Tsample + interception[i][j].n
+        axs[i][j].scatter(T[i][j], V[i][j], label = "Data points")
+        axs[i][j].plot(Tsample, fitcurve, color = 'red', label = "Fitted Curve")
+        axs[i][j].grid()
+        axs[i][j].legend()
+        axs[i][j].set_title(f"{mat[i]} Temperature {fulltrd[j]} V-T Graph")
+fig.suptitle("Seeback Coefficients Plots")
+plt.show()
 
 
 # nom, std = ufloat_align_error_precision(resistance[0][0], 2)
