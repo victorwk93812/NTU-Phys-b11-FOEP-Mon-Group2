@@ -7,7 +7,8 @@ import csv
 import uncertainties as uct
 from uncertainties import unumpy as unp
 import scipy
-from scipy.signal import savgol_filter, medfilt
+from scipy.signal import savgol_filter, medfilt, get_window
+from scipy.fft import fft, ifft, fftfreq
 
 def merge_array_uncertainties(arr, uarr):
     """Given array and corresponding uncertainty array, return unumpy array"""
@@ -115,55 +116,23 @@ def two_arrays_to_latex_table(x, y, xname, yname):
 
 ### Newton's Method ###
 
-ntnumberlist = [2, 3, 6, 7]
-ntdatasource = [f"../data/Newton_T{x}.csv" for x in ntnumberlist]
-ntdf = [pd.read_csv(datsrc) for datsrc in ntdatasource]
-nttime = [np.array(df["Time(s)"]) for df in ntdf]
-nttemp = [np.array(df[f"Temperature{x}(C)"]) for x, df in zip(ntnumberlist, ntdf)]
-# print(ntdf[3])
-# print(nttime[1])
+NTnumlst = [2, 3, 6, 7]
+NTds = [f"../data/Newton_T{x}.csv" for x in NTnumlst]
+NTdf = [pd.read_csv(datsrc) for datsrc in NTds]
+NTtime = [np.array(df["Time(s)"]) for df in NTdf]
+NTtemp = [np.array(df[f"Temperature{x}(C)"]) for x, df in zip(NTnumlst, NTdf)]
+# print(NTdf[3])
+# print(NTtime[1])
 
-# Newton Plots
-ntmergefig, ntmergeaxs= plt.subplots()
+# Newton plots
+NTfig, NTaxs= plt.subplots()
 for i in range(4):
-    ntmergeaxs.plot(nttime[i], nttemp[i], label = f"Newton T{ntnumberlist[i]}")
-ntmergeaxs.legend()
-ntmergefig.savefig("../pics/Newton_Method.png")
+    NTaxs.plot(NTtime[i], NTtemp[i], label = f"Newton T{NTnumlst[i]}")
+NTaxs.grid()
+NTaxs.legend()
+NTfig.savefig("../pics/Newton_Method.png")
 plt.show()
 # ntsepfig, ntsepaxs = plt.subplots()
-
-### Angstrom's Method ###
-angsmatname = ["Material1", "Material2"]
-angsnumberlist = [1, 2, 7, 8]
-angsdatasource = [f"../data/Angstrom_T{x}.csv" for x in angsnumberlist]
-angsdf = [pd.read_csv(datsrc) for datsrc in angsdatasource]
-angstime = [np.array(df["Time(s)"]) for df in angsdf]
-angstemp = [np.array(df[f"Temperature{x}(C)"]) for x, df in zip(angsnumberlist, angsdf)]
-# print(angsdf[3])
-# print(angstime[1])
-
-# Angstrom Plots
-angsfigs, angsaxss = [0, 0], [0, 0]
-for i in range(2):
-    angsfigs[i], angsaxss[i] = plt.subplots()
-for i in range(4):
-    angsaxss[i // 2].plot(angstime[i], angstemp[i], label = f"Angstrom T{angsnumberlist[i]}")
-for i in range(2):
-    angsaxss[i].legend()
-    angsfigs[i].savefig(f"../pics/Angstrom-{angsmatname[i]}.png")
-plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

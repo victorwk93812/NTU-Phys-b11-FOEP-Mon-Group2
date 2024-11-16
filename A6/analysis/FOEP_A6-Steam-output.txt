@@ -1,0 +1,22 @@
+Si Sample width is 5.06000(58) mm.
+
+480s Experiment T difference is 47.600(82) K.
+
+480s Experiment mass difference is 88.6(.7) g.
+
+480s Experiment heat transferred is 29630.000(00) J.
+
+480s Experiment ice surface area is 47.943(10) cm^2.
+
+480s Experiment sample thermal conductivity is 1.369(26) W/mK.
+
+600s Experiment T difference is 55.700(82) K.
+
+600s Experiment mass difference is 127.4(.7) g.
+
+600s Experiment heat transferred is 42600.000(00) J.
+
+600s Experiment ice surface area is 45.3646(98) cm^2.
+
+600s Experiment sample thermal conductivity is 1.422(19) W/mK.
+
