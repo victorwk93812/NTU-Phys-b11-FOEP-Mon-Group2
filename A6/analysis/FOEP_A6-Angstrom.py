@@ -232,6 +232,7 @@ for i in range(2):
     Sifftaxs[i].grid()
     Sifftaxs[i].legend()
     Sifftaxs[i].set_title(f"Si Trial {Sitrial[i]} Amplitude Spectrum")
+Sifftfig.savefig("../pics/Si_FFT_Spectrum.png")
 Sifftfig.suptitle("Si Amplitude Spectra")
 plt.show()
 # Si Trial 1, Trial 2 Amplitude Peak Frequency Array Index
@@ -280,6 +281,7 @@ for i in range(3):
         Bi2Te3fftaxs[i][j].grid()
         Bi2Te3fftaxs[i][j].legend()
         Bi2Te3fftaxs[i][j].set_title(f"Bi2Te3 {Bi2Te3time[index]}s Amplitude Spectrum")
+Bi2Te3fftfig.savefig("../pics/Bi2Te3_FFT_Spectrum.png")
 Bi2Te3fftfig.suptitle("Bi2Te3 Amplitude Spectra")
 plt.show()
 # Bi2Te3 80s, 90s Amplitude Peak Frequency Array Index
