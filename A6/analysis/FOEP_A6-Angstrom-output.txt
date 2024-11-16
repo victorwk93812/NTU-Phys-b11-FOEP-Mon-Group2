@@ -78,9 +78,10 @@ Si Trial 2 T1 FFT Phase Array (First 30 Terms)
   1.66461635  1.6143942   1.61794111  1.5983595   1.65922453  1.77912202
   1.68920347  1.67844746  1.69275663  1.64393324  1.64554399  1.76063709]
 
-Si frequency peaks of trial 1 and 2 (Hz):
-[0.0350109409190372+/-0.002188183807439825, 0.033163265306122444+/-0.0012755102040816326] 
-
+Si trial 1 index of peak in frequency array: 8.
+Si trial 1 peak frequency: 0.0350(22) Hz.
+Si trial 2 index of peak in frequency array: 13.
+Si trial 2 peak frequency: 0.0332(13) Hz.
 Bi2Te3 40s Frequency array length: 523.
 
 Bi2Te3 40s T7 FFT Amplitude Array (First 30 Terms)
@@ -321,6 +322,7 @@ Bi2Te3 90s T8 FFT Phase Array (First 30 Terms)
  1.68498512 1.67070746 1.65633105 1.64767821 1.60342429 1.58952392
  1.62425458 1.65780335 1.67390091 1.68930852 1.67201773 1.64064962]
 
-Bi2Te3 frequency peaks of 80s and 90s:
-[0.013888888888888888+/-0.0011574074074074073, 0.010504201680672268+/-0.0010504201680672268] 
-
+Bi2Te3 80s index of peak in frequency array: 6.
+Bi2Te3 80s peak frequency: 0.0139(12) Hz.
+Bi2Te3 90s index of peak in frequency array: 5.
+Bi2Te3 90s peak frequency: 0.0105(11) Hz.

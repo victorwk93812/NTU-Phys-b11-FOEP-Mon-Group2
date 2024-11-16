@@ -63,6 +63,14 @@ def ufloat_format(x):
     val, err= x.n, x.s
     return uct.ufloat(round_decimal_places(val, -exponent(err) + 2), ceiling_significant_figure(err, 2))
 
+def ufloat_print_format(x):
+    """Return formatted string form of ufloat x to the precision of the 2nd significant figure of the error of x"""
+    x = ufloat_format(x)
+    d = 2 # precision
+    precision = abs(exponent(x.s)) + d - 1
+    valstr, errstr = f'{x.n:.{precision}f}', f'{x.s:.{precision}f}'
+    return f"{valstr}({errstr[-2:]})"
+
 def ufloat_align_error_precision(x, d):
     """Given a ufloat x, return strings x.n and x.s with x.n formatted such that 
     the last digit of them are aligned to the d-th significant figure of x.n"""
@@ -244,10 +252,12 @@ Sifreqpeak = [0, 0]
 for i in range(2):
     freqstep = Sisigfreq[i][0][0]
     # print(freqstep)
-    freqpeak = Siamppeakind[i] * freqstep
+    freqpeak = Sisigfreq[i][0][Siamppeakind[i] - 1]
     Sifreqpeak[i] = uct.ufloat(freqpeak, freqstep / 2)
-print("Si frequency peaks of trial 1 and 2 (Hz):")
-print(Sifreqpeak, '\n')
+    print(f"Si trial {Sitrial[i]} index of peak in frequency array: {Siamppeakind[i]}.")
+    print(f"Si trial {Sitrial[i]} peak frequency: {ufloat_print_format(Sifreqpeak[i])} Hz.")
+# print("Si frequency peaks of trial 1 and 2 (Hz):")
+# print(Sifreqpeak, '\n')
 
 
 ## Bi2Te3 FFT
@@ -297,9 +307,12 @@ Bi2Te3freqpeak = [0, 0]
 for i in range(2):
     freqstep = Bi2Te3sigfreq[i + 4][0][0]
     # print(freqstep)
-    freqpeak = Bi2Te3amppeakind[i] * freqstep
+    freqpeak = Bi2Te3sigfreq[i + 4][0][Bi2Te3amppeakind[i] - 1]
+    # freqpeak = Bi2Te3amppeakind[i] * freqstep
     Bi2Te3freqpeak[i] = uct.ufloat(freqpeak, freqstep / 2)
-print("Bi2Te3 frequency peaks of 80s and 90s:")
-print(Bi2Te3freqpeak, '\n')
+    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s index of peak in frequency array: {Bi2Te3amppeakind[i]}.")
+    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s peak frequency: {ufloat_print_format(Bi2Te3freqpeak[i])} Hz.")
+# print("Bi2Te3 frequency peaks of 80s and 90s:")
+# print(Bi2Te3freqpeak, '\n')
 
 
