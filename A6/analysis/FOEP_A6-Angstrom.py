@@ -210,7 +210,7 @@ for i in range(2):
     # Heat source and response signals
     signal = [np.copy(Sireddata[i][1]), np.copy(Sireddata[i][2])]
     sigsize = len(signal[0])
-    print(sigsize)
+    print(f"Frequency array length: {sigsize}.\n")
     Sifftsig[i] = [fft(sig) for sig in signal]
     Sisigfreq[i] = [fftfreq(len(sig), dt) for sig in Sifftsig[i]]
     # Positive frequency indices
@@ -223,7 +223,9 @@ for i in range(2):
     for j in range(2):
         print(f"Si Trial {Sitrial[i]} T{endpts[j][0]} FFT Amplitude Array (First 30 Terms)")
         print(amp[j][:30])
+        print(f"Si Trial {Sitrial[i]} T{endpts[j][0]} FFT Frequency Sample Array (First 30 Terms)")
         print(Sisigfreq[i][j][:30])
+        print(f"Si Trial {Sitrial[i]} T{endpts[j][0]} FFT Phase Array (First 30 Terms)")
         print(phase[j][:30])
     # print(amp)
     # Phase array
@@ -240,9 +242,10 @@ Siamppeakind = [8, 13]
 Sifreqpeak = [0, 0]
 for i in range(2):
     freqstep = Sisigfreq[i][0][0]
-    print(freqstep)
+    # print(freqstep)
     freqpeak = Siamppeakind[i] * freqstep
     Sifreqpeak[i] = uct.ufloat(freqpeak, freqstep / 2)
+print("Si frequency peaks of trial 1 and 2 (Hz):")
 print(Sifreqpeak)
 
 
@@ -272,7 +275,9 @@ for i in range(3):
         for k in range(2):
             print(f"Bi2Te3 {Bi2Te3time[index]}s T{endpts[k][1]} FFT Amplitude Array (First 30 Terms)")
             print(amp[k][:30])
+            print(f"Bi2Te3 {Bi2Te3time[index]}s T{endpts[k][1]} FFT Frequency Sample Array (First 30 Terms)")
             print(Bi2Te3sigfreq[index][k][:30])
+            print(f"Bi2Te3 {Bi2Te3time[index]}s T{endpts[k][1]} FFT Phase Array (First 30 Terms)")
             print(phase[k][:30])
         # Phase array
         phase = [np.angle(sig) for sig in Bi2Te3fftsig[index]]
@@ -289,9 +294,10 @@ Bi2Te3amppeakind = [6, 5]
 Bi2Te3freqpeak = [0, 0]
 for i in range(2):
     freqstep = Bi2Te3sigfreq[i + 4][0][0]
-    print(freqstep)
+    # print(freqstep)
     freqpeak = Bi2Te3amppeakind[i] * freqstep
     Bi2Te3freqpeak[i] = uct.ufloat(freqpeak, freqstep / 2)
+print("Bi2Te3 frequency peaks of 80s and 90s:")
 print(Bi2Te3freqpeak)
 
 
