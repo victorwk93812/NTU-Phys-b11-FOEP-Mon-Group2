@@ -77,51 +77,6 @@ def ufloat_align_error_precision(x, d):
     precision = abs(exponent(x.s)) + d - 1
     return f'{x.n:.{precision}f}', f'{x.s:.{precision}f}'
 
-def array_to_latex_table(x, xname):
-    """Print an (ufloat) array x with its name into a latex table"""
-    n = len(x)
-    print(r'\begin{tabular}{M}')
-    print("\t", xname, r'\\')
-    print("\t", "\\hline")
-    for i in range(n):
-        if type(x[i]) is uct.core.Variables:
-            dat = ufloat_format(x[i])
-            nom, std = ufloat_align_error_precision(dat, 2)
-            print("\t", nom, r"\pm", std, r"\\")
-        elif type(x[i]) is float or type(x[i]) is np.float64:
-            print("\t", f'{x[i]:.5f}', r"\\")
-        else:
-            print("\t", x[i], r"\\")
-    print(r'\end{tabular}')
-
-def two_arrays_to_latex_table(x, y, xname, yname):
-    """Print (ufloat) arrays x and y with its name into a latex table"""
-    if len(x) != len(y):
-        return
-    n = len(x)
-    print(r'\begin{tabular}{MM}')
-    print("\t", xname, '&', yname, r'\\')
-    print("\t", "\\hline")
-    for i in range(n):
-        if type(x[i]) is uct.core.Variable:
-            datx = ufloat_format(x[i])
-            nomx, stdx = ufloat_align_error_precision(datx, 2)
-            print("\t", nomx, r"\pm", stdx, r'&', end = ' ')
-        elif type(x[i]) is float or type(x[i]) is np.float64:
-            print("\t", f'{x[i]:.5f}', r'&', end = ' ')
-        else:
-            print("\t", x[i], r'&', end = ' ')
-        if type(y[i]) is uct.core.Variable:
-            daty = ufloat_format(y[i])
-            nomy, stdy = ufloat_align_error_precision(daty, 2)
-            print(nomy, r"\pm", stdy, r"\\")
-        elif type(y[i]) is float or type(y[i]) is np.float64:
-            print(f'{y[i]:.5f}', r"\\")
-        else:
-            print(type(y[i]), end = ' ')
-            print(y[i], r"\\")
-    print(r'\end{tabular}')
-
 ### Angstrom's Method ###
 # Material names
 Angsmatname = ["Si", "Bi2Te3"]
@@ -206,13 +161,16 @@ plt.show()
 
 ## Si FFT
 # Si FFT Figure
-Sifftfig, Sifftaxs = plt.subplots(1, 2, figsize = (10, 6))
+Sifftampfig, Sifftampaxs = plt.subplots(1, 2, figsize = (10, 6))
+Sifftphasefig, Sifftphaseaxs = plt.subplots(1, 2, figsize = (10, 6))
 # Siffisig[i][j][n] Amplitude spectrum of Trial i, Tj
 # i: Trial 1, 2
 # j: T2, T1
 Sifftsig = [[0 for i in range(2)] for j in range(2)]
 # Sisigfreq[i][j][n] Frequency array of Trial i, Tj
 Sisigfreq = [[0 for i in range(2)] for j in range(2)]
+Siamp = [[0 for i in range(2)] for j in range(2)]
+Siphase = [[0 for i in range(2)] for j in range(2)]
 dt = 0.5
 for i in range(2):
     # Heat source and response signals
@@ -226,49 +184,91 @@ for i in range(2):
     Sisigfreq[i] = [Sisigfreq[i][j][posind[j]] for j in range(2)]
     Sifftsig[i] = [Sifftsig[i][j][posind[j]] for j in range(2)]
     # Amplitude array
-    amp = [np.abs(sig) * 2 / sigsize for sig in Sifftsig[i]]
-    phase = [np.angle(sig) for sig in Sifftsig[i]]
+    Siamp[i] = [np.abs(sig) * 2 / sigsize for sig in Sifftsig[i]]
+    Siphase[i] = [np.angle(sig) for sig in Sifftsig[i]]
     for j in range(2):
         print(f"Si Trial {Sitrial[i]} T{endpts[j][0]} FFT Amplitude Array (First 30 Terms)")
-        print(amp[j][:30])
+        print(Siamp[i][j][:30])
         print(f"Si Trial {Sitrial[i]} T{endpts[j][0]} FFT Frequency Sample Array (First 30 Terms)")
         print(Sisigfreq[i][j][:30])
         print(f"Si Trial {Sitrial[i]} T{endpts[j][0]} FFT Phase Array (First 30 Terms)")
-        print(phase[j][:30])
+    # Phase array
+        print(Siphase[i][j][:30])
         print()
     # print(amp)
-    # Phase array
-    Sifftaxs[i].plot(Sisigfreq[i][0], amp[0], color = 'blue', label = "Si T2 FFT")
-    Sifftaxs[i].plot(Sisigfreq[i][0], amp[1], color = 'yellow', label = "Si T1 FFT")
-    Sifftaxs[i].grid()
-    Sifftaxs[i].legend()
-    Sifftaxs[i].set_title(f"Si Trial {Sitrial[i]} Amplitude Spectrum")
-Sifftfig.savefig("../pics/Si_FFT_Spectrum.png")
-Sifftfig.suptitle("Si Amplitude Spectra")
+    Sifftampaxs[i].plot(Sisigfreq[i][0], Siamp[i][0], color = 'blue', label = "Si T2 Amplitude")
+    Sifftampaxs[i].plot(Sisigfreq[i][0], Siamp[i][1], color = 'yellow', label = "Si T1 Amplitude")
+    Sifftampaxs[i].grid()
+    Sifftampaxs[i].legend()
+    Sifftampaxs[i].set_title(f"Si Trial {Sitrial[i]} Amplitude Spectrum")
+    Sifftphaseaxs[i].plot(Sisigfreq[i][0], Siphase[i][0], color = 'blue', label = "Si T2 Phase")
+    Sifftphaseaxs[i].plot(Sisigfreq[i][0], Siphase[i][1], color = 'yellow', label = "Si T1 Phase")
+    Sifftphaseaxs[i].grid()
+    Sifftphaseaxs[i].legend()
+    Sifftphaseaxs[i].set_title(f"Si Trial {Sitrial[i]} Phase Spectrum")
+Sifftampfig.savefig("../pics/Si_FFT_Amplitude_Spectra.png")
+Sifftampfig.suptitle("Si Amplitude Spectra")
+Sifftphasefig.savefig("../pics/Si_FFT_Phase_Spectra.png")
+Sifftphasefig.suptitle("Si Phase Spectra")
 plt.show()
+
+
+
+# Si Theoretical Peak Frequency
+Sithpeakfreq = 1 / 30
+# Heat capacity
+Sicap = 700 
+# Density
+Sirho = 2330
+# Distance between T1, T2
+Sidx = uct.ufloat(30, 1) / 1000
 # Si Trial 1, Trial 2 Amplitude Peak Frequency Array Index
-Siamppeakind = [8, 13]
-Sifreqpeak = [0, 0]
+# !!1-base!! not 0-base
+Siamppeakind = [[8, 7], [13, 13]]
+# Si amplitude peak frequencies  with uncertainties
+Siamppeakfreq = [0, 0]
+# Si Trial i Tj Phase Peak Frequency Array Index
+# i: 1, 2, j: 2, 1
+# !!1-base!! not 0-base
+Siphasepeakind = [[7, 8], [13, 13]]
+# Time difference of T1, T2 of Trial i
+Sitimediff = [0, 0]
+# Si thermal conductivity (W / m K)
+Sithmcdt = [0, 0]
 for i in range(2):
+    print(f"Si trial {Sitrial[i]} index of T2 amplitude peak in frequency array: {Siamppeakind[i][0]}.")
     freqstep = Sisigfreq[i][0][0]
     # print(freqstep)
-    freqpeak = Sisigfreq[i][0][Siamppeakind[i] - 1]
-    Sifreqpeak[i] = uct.ufloat(freqpeak, freqstep / 2)
-    print(f"Si trial {Sitrial[i]} index of peak in frequency array: {Siamppeakind[i]}.")
-    print(f"Si trial {Sitrial[i]} peak frequency: {ufloat_print_format(Sifreqpeak[i])} Hz.")
+    freqpeak = Sisigfreq[i][0][Siamppeakind[i][0] - 1]
+    Siamppeakfreq[i] = uct.ufloat(freqpeak, freqstep / 2)
+    print(f"Si trial {Sitrial[i]} T2 amplitude peak frequency: {ufloat_print_format(Siamppeakfreq[i])} Hz.")
+    phase = [Siphase[i][j][Siphasepeakind[i][j] - 1] for j in range(2)]
+    phasediff = phase[1] - phase[0] if phase[1] - phase[0] >= 0 else phase[1] - phase[0] + 2 * np.pi
+    for j in range(2):
+        print(f"Si trial {Sitrial[i]} T{endpts[j][0]} phase peak: {phase[j]:.2f} (rad).")
+    print(f"Si trial {Sitrial[i]} theoretical peak frequency: {Sithpeakfreq:.4f} Hz.")
+    Sitimediff[i] = phasediff / (2 * np.pi * Sithpeakfreq)
+    print(f"Si trial {Sitrial[i]} time difference: {Sitimediff[i]:.2f} s.")
+    # Thermal Conductivity
+    amp = [Siamp[i][j][Siamppeakind[i][j] - 1] for j in range(2)]
+    # print(amp)
+    Sithmcdt[i] = Sicap * Sirho * (Sidx ** 2) / (2 * Sitimediff[i] * np.log(amp[0] / amp[1]))
+    print(f"Si trial {Sitrial[i]} thermal conductivity: {Sithmcdt[i]} W/mK.")
 print()
 # print("Si frequency peaks of trial 1 and 2 (Hz):")
 # print(Sifreqpeak, '\n')
 
 
 ## Bi2Te3 FFT
-Bi2Te3fftfig, Bi2Te3fftaxs = plt.subplots(3, 2, figsize = (10, 16))
+Bi2Te3fftampfig, Bi2Te3fftampaxs = plt.subplots(3, 2, figsize = (10, 16))
 # Bi2Te3ffisig[i][j][n] Amplitude spectrum of Time 40 + 10 * i sec, T7 or T8, resp. j
 # i from 0 to 5: 40, 50, 60, 70, 80, 90
 # j from 0 to 1: T7, T8
 Bi2Te3fftsig = [[0 for i in range(2)] for j in range(6)]
 # Sisigfreq[i][j][n] Frequency array of Trial i, Tj
 Bi2Te3sigfreq = [[0 for i in range(2)] for j in range(6)]
+Bi2Te3amp = [[0 for i in range(2)] for j in range(6)]
+Bi2Te3phase = [[0 for i in range(2)] for j in range(6)]
 dt = 0.5
 for i in range(3):
     for j in range(2):
@@ -283,37 +283,74 @@ for i in range(3):
         Bi2Te3sigfreq[index] = [Bi2Te3sigfreq[index][k][posind[k]] for k in range(2)]
         Bi2Te3fftsig[index] = [Bi2Te3fftsig[index][k][posind[k]] for k in range(2)]
         # Amplitude array
-        amp = [np.abs(sig) * 2 / sigsize for sig in Bi2Te3fftsig[index]] 
+        Bi2Te3amp[index] = [np.abs(sig) * 2 / sigsize for sig in Bi2Te3fftsig[index]] 
+        # Phase array
+        Bi2Te3phase[index] = [np.angle(sig) for sig in Bi2Te3fftsig[index]]
         for k in range(2):
             print(f"Bi2Te3 {Bi2Te3time[index]}s T{endpts[k][1]} FFT Amplitude Array (First 30 Terms)")
-            print(amp[k][:30])
+            print(Bi2Te3amp[index][k][:30])
             print(f"Bi2Te3 {Bi2Te3time[index]}s T{endpts[k][1]} FFT Frequency Sample Array (First 30 Terms)")
             print(Bi2Te3sigfreq[index][k][:30])
             print(f"Bi2Te3 {Bi2Te3time[index]}s T{endpts[k][1]} FFT Phase Array (First 30 Terms)")
-            print(phase[k][:30])
+            print(Bi2Te3phase[index][k][:30])
             print()
-        # Phase array
-        phase = [np.angle(sig) for sig in Bi2Te3fftsig[index]]
-        Bi2Te3fftaxs[i][j].plot(Bi2Te3sigfreq[index][0], amp[0], color = 'blue', label = "Bi2Te3 T7 FFT")
-        Bi2Te3fftaxs[i][j].plot(Bi2Te3sigfreq[index][0], amp[1], color = 'yellow', label = "Bi2Te3 T8 FFT")
-        Bi2Te3fftaxs[i][j].grid()
-        Bi2Te3fftaxs[i][j].legend()
-        Bi2Te3fftaxs[i][j].set_title(f"Bi2Te3 {Bi2Te3time[index]}s Amplitude Spectrum")
-Bi2Te3fftfig.savefig("../pics/Bi2Te3_FFT_Spectrum.png")
-Bi2Te3fftfig.suptitle("Bi2Te3 Amplitude Spectra")
+        Bi2Te3fftampaxs[i][j].plot(Bi2Te3sigfreq[index][0], Bi2Te3amp[index][0], color = 'blue', label = "Bi2Te3 T7 FFT")
+        Bi2Te3fftampaxs[i][j].plot(Bi2Te3sigfreq[index][0], Bi2Te3amp[index][1], color = 'yellow', label = "Bi2Te3 T8 FFT")
+        Bi2Te3fftampaxs[i][j].grid()
+        Bi2Te3fftampaxs[i][j].legend()
+        Bi2Te3fftampaxs[i][j].set_title(f"Bi2Te3 {Bi2Te3time[index]}s Amplitude Spectrum")
+Bi2Te3fftampfig.savefig("../pics/Bi2Te3_FFT_Amplitude_Spectra.png")
+Bi2Te3fftampfig.suptitle("Bi2Te3 Amplitude Spectra")
+
+## Focusing on 80s, 90s cases
+Bi2Te3fftphasefig, Bi2Te3fftphaseaxs = plt.subplots(1, 2, figsize = (10, 6))
+for i in range(2):
+    Bi2Te3fftphaseaxs[i].plot(Bi2Te3sigfreq[i + 4][0], Bi2Te3phase[i + 4][0], color = 'blue', label = "Bi2Te3 T7 Phase")
+    Bi2Te3fftphaseaxs[i].plot(Bi2Te3sigfreq[i + 4][0], Bi2Te3phase[i + 4][1], color = 'yellow', label = "Bi2Te3 T8 Phase")
+    Bi2Te3fftphaseaxs[i].grid()
+    Bi2Te3fftphaseaxs[i].legend()
+    Bi2Te3fftphaseaxs[i].set_title(f"Bi2Te3 {Bi2Te3time[i + 4]}s Phase Spectrum")
+Bi2Te3fftphasefig.savefig("../pics/Bi2Te3_FFT_Phase_Spectra.png")
+Bi2Te3fftphasefig.suptitle("Bi2Te3 Phase Spectra")
+    
 plt.show()
+
+
+Bi2Te3thpeakfreq = [1 / 80, 1 / 90]
+# Heat capacity
+Bi2Te3cap = 126.19 / (800.761 / 1000)
+# Density
+Bi2Te3rho = 6966
+# Distance between T7, T8
+Bi2Te3dx = uct.ufloat(30, 1) / 1000
 # Bi2Te3 80s, 90s Amplitude Peak Frequency Array Index
-Bi2Te3amppeakind = [6, 5]
+Bi2Te3amppeakind = [[6, 6], [5, 5]]
 Bi2Te3freqpeak = [0, 0]
+# Bi2Te3 Time i Tj Phase Peak Frequency Array Index
+# i: 80s, 90s, j: 7, 8
+# !!1-base!! not 0-base
+Bi2Te3phasepeakind = [[5, 5], [5, 5]]
+# Time difference of T1, T2 of Trial i
+Bi2Te3timediff = [0, 0]
+# Bi2Te3 thermal conductivity (W / m K)
+Bi2Te3thmcdt = [0, 0]
 for i in range(2):
     freqstep = Bi2Te3sigfreq[i + 4][0][0]
     # print(freqstep)
-    freqpeak = Bi2Te3sigfreq[i + 4][0][Bi2Te3amppeakind[i] - 1]
+    freqpeak = Bi2Te3sigfreq[i + 4][0][Bi2Te3amppeakind[i][0] - 1]
     # freqpeak = Bi2Te3amppeakind[i] * freqstep
     Bi2Te3freqpeak[i] = uct.ufloat(freqpeak, freqstep / 2)
-    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s index of peak in frequency array: {Bi2Te3amppeakind[i]}.")
-    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s peak frequency: {ufloat_print_format(Bi2Te3freqpeak[i])} Hz.")
-# print("Bi2Te3 frequency peaks of 80s and 90s:")
-# print(Bi2Te3freqpeak, '\n')
-
-
+    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s index of T7 amplitude peak in frequency array: {Bi2Te3amppeakind[i][0]:.2f}.")
+    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s T7 amplitude peak frequency: {ufloat_print_format(Bi2Te3freqpeak[i])} Hz.")
+    phase = [Bi2Te3phase[i + 4][j][Bi2Te3phasepeakind[i][j] - 1] for j in range(2)]
+    phasediff = phase[1] - phase[0] if phase[1] - phase[0] >= 0 else phase[1] - phase[0] + 2 * np.pi
+    for j in range(2):
+        print(f"Bi2Te3 {Bi2Te3time[i + 4]}s T{endpts[j][1]} phase peak: {phase[j]:.2f} (rad).")
+    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s theoretical peak frequency: {Bi2Te3thpeakfreq[i]:.4f} Hz.")
+    Bi2Te3timediff[i] = phasediff / (2 * np.pi * Bi2Te3thpeakfreq[i])
+    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s time difference: {Bi2Te3timediff[i]:.2f} s.")
+    # Thermal Conductivity
+    amp = [Bi2Te3amp[i + 4][j][Bi2Te3amppeakind[i][j] - 1] for j in range(2)]
+    # print(amp)
+    Bi2Te3thmcdt[i] = Bi2Te3cap * Bi2Te3rho * (Bi2Te3dx ** 2) / (2 * Bi2Te3timediff[i] * np.log(amp[0] / amp[1]))
+    print(f"Bi2Te3 {Bi2Te3time[i + 4]}s thermal conductivity: {Bi2Te3thmcdt[i]} W/mK.")

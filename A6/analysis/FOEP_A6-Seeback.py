@@ -76,50 +76,6 @@ def ufloat_align_error_precision(x, d):
     precision = abs(exponent(x.s)) + d - 1
     return f'{x.n:.{precision}f}', f'{x.s:.{precision}f}'
 
-def array_to_latex_table(x, xname):
-    """Print an (ufloat) array x with its name into a latex table"""
-    n = len(x)
-    print(r'\begin{tabular}{M}')
-    print("\t", xname, r'\\')
-    print("\t", "\\hline")
-    for i in range(n):
-        if type(x[i]) is uct.core.Variables:
-            dat = ufloat_format(x[i])
-            nom, std = ufloat_align_error_precision(dat, 2)
-            print("\t", nom, r"\pm", std, r"\\")
-        elif type(x[i]) is float or type(x[i]) is np.float64:
-            print("\t", f'{x[i]:.5f}', r"\\")
-        else:
-            print("\t", x[i], r"\\")
-    print(r'\end{tabular}')
-
-def two_arrays_to_latex_table(x, y, xname, yname):
-    """Print (ufloat) arrays x and y with its name into a latex table"""
-    if len(x) != len(y):
-        return
-    n = len(x)
-    print(r'\begin{tabular}{MM}')
-    print("\t", xname, '&', yname, r'\\')
-    print("\t", "\\hline")
-    for i in range(n):
-        if type(x[i]) is uct.core.Variable:
-            datx = ufloat_format(x[i])
-            nomx, stdx = ufloat_align_error_precision(datx, 2)
-            print("\t", nomx, r"\pm", stdx, r'&', end = ' ')
-        elif type(x[i]) is float or type(x[i]) is np.float64:
-            print("\t", f'{x[i]:.5f}', r'&', end = ' ')
-        else:
-            print("\t", x[i], r'&', end = ' ')
-        if type(y[i]) is uct.core.Variable:
-            daty = ufloat_format(y[i])
-            nomy, stdy = ufloat_align_error_precision(daty, 2)
-            print(nomy, r"\pm", stdy, r"\\")
-        elif type(y[i]) is float or type(y[i]) is np.float64:
-            print(f'{y[i]:.5f}', r"\\")
-        else:
-            print(type(y[i]), end = ' ')
-            print(y[i], r"\\")
-    print(r'\end{tabular}')
 
 ### Seeback Coefficient ###
 
@@ -130,12 +86,19 @@ mat = ["Si", "Bi2Te3"]
 # Temperature inc/dec
 trd = ["inc", "dec"]
 fulltrd = ["increasing", "decreasing"]
+Verr = [df["Volterr(mV)"][0] for _ in range(5)]
+Terr = [df["Terr(C)"][0] for _ in range(5)]
+Ierr = [df["Ierr(mA)"][0] for _ in range(5)]
 # Temperature array (C), T[i][j]: Material mat[i], j:increasing, decreasing
 T = [[np.array(df[f"{mat[i]}DeltaT{trd[j]}(C)"]) for j in range(2)] for i in range(2)]
+# Temperature array with uncertainties
+Tuct = [[unp.uarray(np.array(df[f"{mat[i]}DeltaT{trd[j]}(C)"]), Terr) for j in range(2)] for i in range(2)]
 # Voltage array (mV), T[i][j]: Material mat[i], j:increasing, decreasing
 V = [[np.array(df[f"{mat[i]}DeltaV{trd[j]}(mV)"]) for j in range(2)] for i in range(2)]
-S = [[- linear_regression(T[i][j], V[i][j])[0] for j in range(2)] for i in range(2)]
-interception = [[linear_regression(T[i][j], V[i][j])[1] for j in range(2)] for i in range(2)]
+# Voltage array with uncertainties
+Vuct = [[unp.uarray(np.array(df[f"{mat[i]}DeltaV{trd[j]}(mV)"]), Verr) for j in range(2)] for i in range(2)]
+S = [[- linear_regression(Tuct[i][j], Vuct[i][j])[0] for j in range(2)] for i in range(2)]
+interception = [[linear_regression(Tuct[i][j], Vuct[i][j])[1] for j in range(2)] for i in range(2)]
 fig, axs = plt.subplots(2, 2, figsize = (10, 10))
 for i in range(2):
     for j in range(2):
@@ -150,24 +113,3 @@ for i in range(2):
         axs[i][j].set_title(f"{mat[i]} Temperature {fulltrd[j]} V-T Graph")
 fig.suptitle("Seeback Coefficients Plots")
 plt.show()
-
-
-# nom, std = ufloat_align_error_precision(resistance[0][0], 2)
-# print(ufloat_print_format(uct.ufloat(2.35847357835, 0.000032483848)))
-# two_arrays_to_latex_table(uctarray1, uctarray2, name1, name2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

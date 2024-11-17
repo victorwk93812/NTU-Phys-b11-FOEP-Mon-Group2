@@ -1,8 +1,8 @@
-Seeback coefficient of Si in temperature increasing is -0.7963163660879832+/-0 mV/K.
+Seeback coefficient of Si in temperature increasing is -0.8+/-0.8 mV/K.
 
-Seeback coefficient of Si in temperature decreasing is -0.7980675627664614+/-0 mV/K.
+Seeback coefficient of Si in temperature decreasing is -0.8+/-0.5 mV/K.
 
-Seeback coefficient of Bi2Te3 in temperature increasing is -0.10607207503702486+/-0 mV/K.
+Seeback coefficient of Bi2Te3 in temperature increasing is -0.11+/-0.05 mV/K.
 
-Seeback coefficient of Bi2Te3 in temperature decreasing is -0.10429186059097306+/-0 mV/K.
+Seeback coefficient of Bi2Te3 in temperature decreasing is -0.10+/-0.06 mV/K.
 
