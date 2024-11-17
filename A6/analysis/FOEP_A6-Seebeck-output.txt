@@ -6,3 +6,17 @@ Seeback coefficient of Bi2Te3 in temperature increasing is -0.11+/-0.05 mV/K.
 
 Seeback coefficient of Bi2Te3 in temperature decreasing is -0.10+/-0.06 mV/K.
 
+Resistance of Si is 0.1234(86) (omega).
+
+Resistance of Bi2Te3 is 0.00377(29) (omega).
+
+Resistivity of Si is 0.0000317(49) (omega m).
+
+Conductivity of Si is 31586.16706374991+/-4867.126450240976 (omega^{-1} m^{-1}).
+
+Resistivity of Bi2Te3 is 0.00000629(52) (omega m).
+
+Conductivity of Bi2Te3 is 159055.11811023628+/-13123.341703969301 (omega^{-1} m^{-1}).
+
+Si figure of merit ZT: 0.20(25).
+Bi2Te3 figure of merit ZT: 0.046(35).

@@ -112,3 +112,48 @@ for i in range(2):
         axs[i][j].set_title(f"{mat[i]} Temperature {fulltrd[j]} V-T Graph")
 fig.suptitle("Seeback Coefficients Plots")
 # plt.show()
+
+# Four points measurement
+SiIpos = uct.ufloat(df["SiI+(mA)"][0], Ierr[0])
+SiVpos = uct.ufloat(df["SiV+(mV)"][0], Verr[0])
+SiIneg = uct.ufloat(df["SiI-(mA)"][0], Ierr[0])
+SiVneg = uct.ufloat(df["SiV-(mV)"][0], Verr[0])
+Bi2Te3Ipos = uct.ufloat(df["Bi2Te3I+(mA)"][0], Ierr[0])
+Bi2Te3Vpos = uct.ufloat(df["Bi2Te3V+(mV)"][0], Verr[0])
+Bi2Te3Ineg = uct.ufloat(df["Bi2Te3I-(mA)"][0], Ierr[0])
+Bi2Te3Vneg = uct.ufloat(df["Bi2Te3V-(mV)"][0], Verr[0])
+
+# Resistance
+SiR = (SiVpos - SiVneg) / (SiIpos - SiIneg)
+print(f"Resistance of Si is {ufloat_print_format(SiR)} (omega).\n")
+Bi2Te3R = (Bi2Te3Vpos - Bi2Te3Vneg) / (Bi2Te3Ipos - Bi2Te3Ineg)
+print(f"Resistance of Bi2Te3 is {ufloat_print_format(Bi2Te3R)} (omega).\n")
+# h, w, l in mm
+Sih, Siw, Sil = uct.ufloat(0.513, 0.0005), uct.ufloat(15, 2), uct.ufloat(30, 1)
+Bi2Te3h, Bi2Te3w, Bi2Te3l = uct.ufloat(5, 0.02), uct.ufloat(10, 0.02), uct.ufloat(30, 1)
+# Resistivity (omega m)
+Sirho = SiR * Sih * Siw / Sil * 0.001
+# Conductivity (omega^{-1} m^{-1})
+Sisigma = 1 / Sirho
+print(f"Resistivity of Si is {ufloat_print_format(Sirho)} (omega m).\n")
+print(f"Conductivity of Si is {repr(Sisigma)} (omega^{{-1}} m^{{-1}}).\n")
+Bi2Te3rho = Bi2Te3R * Bi2Te3h * Bi2Te3w / Bi2Te3l * 0.001
+Bi2Te3sigma = 1 / Bi2Te3rho
+print(f"Resistivity of Bi2Te3 is {ufloat_print_format(Bi2Te3rho)} (omega m).\n")
+print(f"Conductivity of Bi2Te3 is {repr(Bi2Te3sigma)} (omega^{{-1}} m^{{-1}}).\n")
+
+# Thermal conductivity from Angstrom
+SiK = (uct.ufloat(41.1, 2.7) + uct.ufloat(17.6, 1.2)) / 2
+Bi2Te3K = (uct.ufloat(19.1, 0.7) + uct.ufloat(3.33, 0.22)) / 2
+
+# Average Seebeck coefficients (V/K)
+SiS = (S[0][0] + S[0][1]) / 2 / 1000
+Bi2Te3S = (S[1][0] + S[1][1]) / 2 / 1000
+
+# Temperature (K)
+T = 293
+
+SiZT = (SiS**2) * Sisigma * T / SiK
+Bi2Te3ZT = (Bi2Te3S**2) * Bi2Te3sigma * T / Bi2Te3K
+print(f"Si figure of merit ZT: {ufloat_print_format(SiZT)}.")
+print(f"Bi2Te3 figure of merit ZT: {ufloat_print_format(Bi2Te3ZT)}.")
