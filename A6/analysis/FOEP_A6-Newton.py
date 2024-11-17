@@ -26,10 +26,14 @@ temp = [np.array(df[f"Temperature{num}(C)"]) for num, df in zip(numlst, df)]
 fig, axs= plt.subplots()
 for i in range(4):
     axs.plot(time[i], temp[i], label = f"Newton T{numlst[i]}")
-    axs.grid()
-    axs.legend()
-fig.savefig("../pics/Newton_Method.png")
-plt.show()
+axs.set_xlabel("Time (s)")
+axs.set_ylabel("Temperature $(^\circ C)$")
+axs.set_title("Materials Temperature-Time Graph")
+axs.grid()
+axs.legend()
+fig.suptitle("Newton's Cooling Law")
+fig.savefig("../pics/Newton_Cooling.png")
+# plt.show()
 # Index left and right bounds for time and temperature arrays
 indbnd = [[221, 542], [221, 542], [221, 542], [261, 542]]
 time = [time[i][indbnd[i][0]:indbnd[i][1]] for i in range(4)]
@@ -43,8 +47,8 @@ axs.set_title("Materials Cooling")
 axs.grid()
 axs.legend()
 fig.suptitle("Newton's Cooling Law")
-fig.savefig("../pics/Newton_Method-Reduced.png")
-plt.show()
+fig.savefig("../pics/Newton_Cooling-Reduced.png")
+# plt.show()
 
 def exp_curve(t, A, B, tau):
     return A + B * np.exp(- ((t - t[0]) / tau))
@@ -60,16 +64,16 @@ tau = [popt[i][2] for i in range(4)]
 tempfitcur = [exp_curve(time[i], *(popt[i])) for i in range(4)]
 fig, axs= plt.subplots()
 for i in range(4):
-    axs.scatter(time[i], temp[i], label = f"{matlst[i]} (T{numlst[i]})")
+    axs.scatter(time[i], temp[i], s = 5, label = f"{matlst[i]} (T{numlst[i]})")
     axs.plot(time[i], tempfitcur[i], label = f"{matlst[i]} (T{numlst[i]}) Fitted Curve")
 axs.set_xlabel("Time (s)")
 axs.set_ylabel("Temperature $(^\circ C)$")
-axs.set_title("Materials Cooling")
+axs.set_title("Fitting Materials Cooling Curve")
 axs.grid()
 axs.legend()
 fig.suptitle("Newton's Cooling Law")
-fig.savefig("../pics/Newton_Method-Reduced-Fitted.png")
-plt.show()
+fig.savefig("../pics/Newton_Cooling-Reduced-Fitted.png")
+# plt.show()
 
 for i in range(4):
     print(f"Time constant of {matlst[i]} is {popt[i][2]:.2f} s.\n")

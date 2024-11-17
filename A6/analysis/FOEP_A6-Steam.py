@@ -109,7 +109,7 @@ K = h * heat / (A * dt * time)
 print(f"Si Sample width is {ufloat_print_format(h * 1000)} mm.\n")
 for i in range(2):
     print(f"{time[i]}s Experiment T difference is {ufloat_print_format(dt[i])} K.\n")
-    print(f"{time[i]}s Experiment mass difference is {ufloat_print_format(dm[i])} g.\n")
+    print(f"{time[i]}s Experiment mass difference is {dm[i]} g.\n")
     print(f"{time[i]}s Experiment heat transferred is {ufloat_print_format(heat[i])} J.\n")
     print(f"{time[i]}s Experiment ice surface area is {ufloat_print_format(A[i] * 10000)} cm^2.\n")
     print(f"{time[i]}s Experiment sample thermal conductivity is {ufloat_print_format(K[i])} W/mK.\n")

@@ -76,7 +76,6 @@ def ufloat_align_error_precision(x, d):
     precision = abs(exponent(x.s)) + d - 1
     return f'{x.n:.{precision}f}', f'{x.s:.{precision}f}'
 
-
 ### Seeback Coefficient ###
 
 ds = "../data/A6-1.csv"
@@ -112,4 +111,4 @@ for i in range(2):
         axs[i][j].legend()
         axs[i][j].set_title(f"{mat[i]} Temperature {fulltrd[j]} V-T Graph")
 fig.suptitle("Seeback Coefficients Plots")
-plt.show()
+# plt.show()

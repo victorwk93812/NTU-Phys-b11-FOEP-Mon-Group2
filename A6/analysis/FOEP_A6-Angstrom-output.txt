@@ -80,6 +80,8 @@ Si Trial 2 T1 FFT Phase Array (First 30 Terms)
 
 Si trial 1 index of T2 amplitude peak in frequency array: 8.
 Si trial 1 T2 amplitude peak frequency: 0.0350(22) Hz.
+Si trial 1 index of T1 amplitude peak in frequency array: 7.
+Si trial 1 T1 amplitude peak frequency: 0.0306(22) Hz.
 Si trial 1 T2 phase peak: -2.42 (rad).
 Si trial 1 T1 phase peak: -0.20 (rad).
 Si trial 1 theoretical peak frequency: 0.0333 Hz.
@@ -87,6 +89,8 @@ Si trial 1 time difference: 10.63 s.
 Si trial 1 thermal conductivity: 41.1+/-2.7 W/mK.
 Si trial 2 index of T2 amplitude peak in frequency array: 13.
 Si trial 2 T2 amplitude peak frequency: 0.0332(13) Hz.
+Si trial 2 index of T1 amplitude peak in frequency array: 13.
+Si trial 2 T1 amplitude peak frequency: 0.0332(13) Hz.
 Si trial 2 T2 phase peak: -0.15 (rad).
 Si trial 2 T1 phase peak: -1.69 (rad).
 Si trial 2 theoretical peak frequency: 0.0333 Hz.
@@ -333,15 +337,19 @@ Bi2Te3 90s T8 FFT Phase Array (First 30 Terms)
  1.63214139 1.41811403 1.34143124 1.63304908 1.7413393  1.40941686
  1.87448385 1.71550631 1.51894317 1.8288138  1.48937104 1.4828993 ]
 
-Bi2Te3 80s index of T7 amplitude peak in frequency array: 6.00.
-Bi2Te3 80s T7 amplitude peak frequency: 0.0139(12) Hz.
+Bi2Te3 80s index of T7 amplitude peak in frequency array: 6.
+Bi2Te3 80s T2 amplitude peak frequency: 0.0139(12) Hz.
+Bi2Te3 80s index of T8 amplitude peak in frequency array: 6.
+Bi2Te3 80s T1 amplitude peak frequency: 0.0139(12) Hz.
 Bi2Te3 80s T7 phase peak: -1.56 (rad).
 Bi2Te3 80s T8 phase peak: 1.66 (rad).
 Bi2Te3 80s theoretical peak frequency: 0.0125 Hz.
 Bi2Te3 80s time difference: 41.05 s.
 Bi2Te3 80s thermal conductivity: 10.1+/-0.7 W/mK.
-Bi2Te3 90s index of T7 amplitude peak in frequency array: 5.00.
+Bi2Te3 90s index of T7 amplitude peak in frequency array: 5.
 Bi2Te3 90s T7 amplitude peak frequency: 0.0105(11) Hz.
+Bi2Te3 90s index of T8 amplitude peak in frequency array: 5.
+Bi2Te3 90s T8 amplitude peak frequency: 0.0105(11) Hz.
 Bi2Te3 90s T7 phase peak: -2.01 (rad).
 Bi2Te3 90s T8 phase peak: 2.23 (rad).
 Bi2Te3 90s theoretical peak frequency: 0.0111 Hz.
