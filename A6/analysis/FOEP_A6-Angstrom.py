@@ -116,18 +116,23 @@ for i in range(6):
 
 ## Raw Data Plots  ##
 
-Sifig, Siaxs = plt.subplots(1, 2, figsize = (10, 6))
-Siredfig, Siredaxs = plt.subplots(1, 2, figsize = (10, 6))
-Bi2Te3fig, Bi2Te3axs = plt.subplots(3, 2, figsize = (10, 16))
-Bi2Te3redfig, Bi2Te3redaxs = plt.subplots(3, 2, figsize = (10, 16))
+Sifig, Siaxs = plt.subplots(1, 2, figsize = (12, 5))
+Siredfig, Siredaxs = plt.subplots(1, 2, figsize = (12, 5))
+Bi2Te3fig, Bi2Te3axs = plt.subplots(3, 2, figsize = (12, 12))
+Bi2Te3redfig, Bi2Te3redaxs = plt.subplots(3, 2, figsize = (12, 12))
+plt.subplots_adjust(left = 0.1, bottom = 0.05, top = 0.94, right = 0.9, wspace = 0.3, hspace = 0.25)
 for i in range(2):
     Siaxs[i].plot(Sidata[i][0], Sidata[i][1], color = 'blue', label = f"Si 30s Trial{Sitrial[i]}-T2")
     Siaxs[i].plot(Sidata[i][0], Sidata[i][2], color = 'yellow', label = f"Si 30s Trial{Sitrial[i]}-T1")
+    Siaxs[i].set_xlabel("Time (s)")
+    Siaxs[i].set_ylabel("Temperature ($^\circ C$)")
     Siaxs[i].grid()
     Siaxs[i].legend()
     Siaxs[i].set_title(f"Si Trial{Sitrial[i]}")
     Siredaxs[i].plot(Sireddata[i][0], Sireddata[i][1], color = 'blue', label = f"Si Reduced 30s Trial{Sitrial[i]}-T2")
     Siredaxs[i].plot(Sireddata[i][0], Sireddata[i][2], color = 'yellow', label = f"Si Reduced 30s Trial{Sitrial[i]}-T1")
+    Siredaxs[i].set_xlabel("Time (s)")
+    Siredaxs[i].set_ylabel("Temperature ($^\circ C$)")
     Siredaxs[i].grid()
     Siredaxs[i].legend()
     Siredaxs[i].set_title(f"Si Reduced Trial{Sitrial[i]}")
@@ -136,11 +141,15 @@ for i in range(3):
         index = 2 * i + j
         Bi2Te3axs[i][j].plot(Bi2Te3data[index][0], Bi2Te3data[index][1], color = 'blue', label = f"Bi2Te3 {Bi2Te3time[index]}s T7")
         Bi2Te3axs[i][j].plot(Bi2Te3data[index][0], Bi2Te3data[index][2], color = 'yellow', label = f"Bi2Te3 {Bi2Te3time[index]}s T8")
+        Bi2Te3axs[i][j].set_xlabel("Time (s)")
+        Bi2Te3axs[i][j].set_ylabel("Temperature ($^\circ C$)")
         Bi2Te3axs[i][j].grid()
         Bi2Te3axs[i][j].legend()
         Bi2Te3axs[i][j].set_title(f"Bi2Te3 {Bi2Te3time[index]}s")
         Bi2Te3redaxs[i][j].plot(Bi2Te3reddata[index][0], Bi2Te3reddata[index][1], color = 'blue', label = f"Bi2Te3 Reduced {Bi2Te3time[index]}s T7")
         Bi2Te3redaxs[i][j].plot(Bi2Te3reddata[index][0], Bi2Te3reddata[index][2], color = 'yellow', label = f"Bi2Te3 Reduced {Bi2Te3time[index]}s T8")
+        Bi2Te3redaxs[i][j].set_xlabel("Time (s)")
+        Bi2Te3redaxs[i][j].set_ylabel("Temperature ($^\circ C$)")
         Bi2Te3redaxs[i][j].grid()
         Bi2Te3redaxs[i][j].legend()
         Bi2Te3redaxs[i][j].set_title(f"Bi2Te3 Reduced {Bi2Te3time[index]}s")
@@ -152,15 +161,17 @@ Bi2Te3fig.suptitle("Bi2Te3 Temperature to Time Graphs")
 Bi2Te3fig.savefig("../pics/Bi2Te3-T7T8.png")
 Bi2Te3redfig.suptitle("Bi2Te3 Temperature to Time (Reduced) Graphs")
 Bi2Te3redfig.savefig("../pics/Bi2Te3-Reduced-T7T8.png")
-# plt.show()
+plt.show()
 
 ## FFT ##
 
 # Use reduced data to perform FFT
 
 # Si FFT Figures
-Sifftampfig, Sifftampaxs = plt.subplots(1, 2, figsize = (10, 6))
-Sifftphasefig, Sifftphaseaxs = plt.subplots(1, 2, figsize = (10, 6))
+Sifftampfig, Sifftampaxs = plt.subplots(1, 2, figsize = (12, 5))
+plt.subplots_adjust(left = 0.1, bottom = 0.1, top = 0.9, right = 0.9, wspace = 0.2, hspace = 0.25)
+Sifftphasefig, Sifftphaseaxs = plt.subplots(1, 2, figsize = (12, 5))
+plt.subplots_adjust(left = 0.1, bottom = 0.1, top = 0.9, right = 0.9, wspace = 0.2, hspace = 0.25)
 # Siffisig[i][j][n] Amplitude spectrum of Trial i, Tj
 # i: Trial 1, 2
 # j: T2, T1
@@ -198,20 +209,24 @@ for i in range(2):
         print()
     Sifftampaxs[i].plot(Sisigfreq[i][0], Siamp[i][0], color = 'blue', label = "Si T2 Amplitude")
     Sifftampaxs[i].plot(Sisigfreq[i][0], Siamp[i][1], color = 'yellow', label = "Si T1 Amplitude")
+    Sifftampaxs[i].set_xlabel("Frequency (Hz)")
+    Sifftampaxs[i].set_ylabel("Temperature Amplitude ($^\circ C$)")
     Sifftampaxs[i].grid()
     Sifftampaxs[i].legend()
     Sifftampaxs[i].set_title(f"Si Trial {Sitrial[i]} Amplitude Spectrum")
     Sifftphaseaxs[i].plot(Sisigfreq[i][0], Siphase[i][0], color = 'blue', label = "Si T2 Phase")
     Sifftphaseaxs[i].plot(Sisigfreq[i][0], Siphase[i][1], color = 'yellow', label = "Si T1 Phase")
+    Sifftphaseaxs[i].set_xlabel("Frequency (Hz)")
+    Sifftphaseaxs[i].set_ylabel("Phase (rad)")
     Sifftphaseaxs[i].grid()
     Sifftphaseaxs[i].legend()
     Sifftphaseaxs[i].set_title(f"Si Trial {Sitrial[i]} Phase Spectrum")
 # Saving figures
-Sifftampfig.savefig("../pics/Si_FFT_Amplitude_Spectra.png")
 Sifftampfig.suptitle("Si Amplitude Spectra")
-Sifftphasefig.savefig("../pics/Si_FFT_Phase_Spectra.png")
+Sifftampfig.savefig("../pics/Si_FFT_Amplitude_Spectra.png")
 Sifftphasefig.suptitle("Si Phase Spectra")
-# plt.show()
+Sifftphasefig.savefig("../pics/Si_FFT_Phase_Spectra.png")
+plt.show()
 
 ## Spectral Analysis
 
@@ -261,7 +276,8 @@ for i in range(2):
 print()
 
 ## Bi2Te3 FFT
-Bi2Te3fftampfig, Bi2Te3fftampaxs = plt.subplots(3, 2, figsize = (10, 16))
+Bi2Te3fftampfig, Bi2Te3fftampaxs = plt.subplots(3, 2, figsize = (12, 12))
+plt.subplots_adjust(left = 0.1, bottom = 0.05, top = 0.94, right = 0.9, wspace = 0.3, hspace = 0.25)
 # Bi2Te3ffisig[i][j][n] Amplitude spectrum of Time 40 + 10 * i sec, T7 or T8, resp. j
 # i from 0 to 5: 40, 50, 60, 70, 80, 90
 # j from 0 to 1: T7, T8
@@ -296,24 +312,28 @@ for i in range(3):
             print()
         Bi2Te3fftampaxs[i][j].plot(Bi2Te3sigfreq[index][0], Bi2Te3amp[index][0], color = 'blue', label = "Bi2Te3 T7 FFT")
         Bi2Te3fftampaxs[i][j].plot(Bi2Te3sigfreq[index][0], Bi2Te3amp[index][1], color = 'yellow', label = "Bi2Te3 T8 FFT")
+        Bi2Te3fftampaxs[i][j].set_xlabel("Frequency (Hz)")
+        Bi2Te3fftampaxs[i][j].set_ylabel("Temperature Amplitude ($^\circ C$)")
         Bi2Te3fftampaxs[i][j].grid()
         Bi2Te3fftampaxs[i][j].legend()
         Bi2Te3fftampaxs[i][j].set_title(f"Bi2Te3 {Bi2Te3time[index]}s Amplitude Spectrum")
-Bi2Te3fftampfig.savefig("../pics/Bi2Te3_FFT_Amplitude_Spectra.png")
 Bi2Te3fftampfig.suptitle("Bi2Te3 Amplitude Spectra")
+Bi2Te3fftampfig.savefig("../pics/Bi2Te3_FFT_Amplitude_Spectra.png")
 
 ## Focusing on 80s, 90s cases
-Bi2Te3fftphasefig, Bi2Te3fftphaseaxs = plt.subplots(1, 2, figsize = (10, 6))
+Bi2Te3fftphasefig, Bi2Te3fftphaseaxs = plt.subplots(1, 2, figsize = (12, 5))
+plt.subplots_adjust(left = 0.1, bottom = 0.1, top = 0.9, right = 0.9, wspace = 0.2, hspace = 0.25)
 for i in range(2):
     Bi2Te3fftphaseaxs[i].plot(Bi2Te3sigfreq[i + 4][0], Bi2Te3phase[i + 4][0], color = 'blue', label = "Bi2Te3 T7 Phase")
     Bi2Te3fftphaseaxs[i].plot(Bi2Te3sigfreq[i + 4][0], Bi2Te3phase[i + 4][1], color = 'yellow', label = "Bi2Te3 T8 Phase")
+    Bi2Te3fftphaseaxs[i].set_xlabel("Frequency (Hz)")
+    Bi2Te3fftphaseaxs[i].set_ylabel("Phase (rad)")
     Bi2Te3fftphaseaxs[i].grid()
     Bi2Te3fftphaseaxs[i].legend()
     Bi2Te3fftphaseaxs[i].set_title(f"Bi2Te3 {Bi2Te3time[i + 4]}s Phase Spectrum")
-Bi2Te3fftphasefig.savefig("../pics/Bi2Te3_FFT_Phase_Spectra.png")
 Bi2Te3fftphasefig.suptitle("Bi2Te3 Phase Spectra")
-    
-# plt.show()
+Bi2Te3fftphasefig.savefig("../pics/Bi2Te3_FFT_Phase_Spectra.png")
+plt.show()
 
 ## Spectral Analysis
 
