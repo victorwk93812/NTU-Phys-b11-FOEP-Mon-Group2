@@ -161,7 +161,7 @@ Bi2Te3fig.suptitle("Bi2Te3 Temperature to Time Graphs")
 Bi2Te3fig.savefig("../pics/Bi2Te3-T7T8.png")
 Bi2Te3redfig.suptitle("Bi2Te3 Temperature to Time (Reduced) Graphs")
 Bi2Te3redfig.savefig("../pics/Bi2Te3-Reduced-T7T8.png")
-plt.show()
+# plt.show()
 
 ## FFT ##
 
@@ -226,7 +226,7 @@ Sifftampfig.suptitle("Si Amplitude Spectra")
 Sifftampfig.savefig("../pics/Si_FFT_Amplitude_Spectra.png")
 Sifftphasefig.suptitle("Si Phase Spectra")
 Sifftphasefig.savefig("../pics/Si_FFT_Phase_Spectra.png")
-plt.show()
+# plt.show()
 
 ## Spectral Analysis
 
@@ -333,7 +333,7 @@ for i in range(2):
     Bi2Te3fftphaseaxs[i].set_title(f"Bi2Te3 {Bi2Te3time[i + 4]}s Phase Spectrum")
 Bi2Te3fftphasefig.suptitle("Bi2Te3 Phase Spectra")
 Bi2Te3fftphasefig.savefig("../pics/Bi2Te3_FFT_Phase_Spectra.png")
-plt.show()
+# plt.show()
 
 ## Spectral Analysis
 
