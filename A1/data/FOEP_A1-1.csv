@@ -1,2 +1,2 @@
-R(omega),uR(omega),RBCDA(momega),uRBCDA(momega),RCDAB(momega),uRBCDA(momega),len(mm),ulen(mm),d(A),ud(A),w(mm),uw(mm),RBCDA(momega),uRBCDA(momega),RCDAB(momega),uRCDAB(momega),RACBD+(momega),uRACBD+(momega),RACBD-(momega),uRACBD-(momega)
-1.783,0.00021,351.3,0.03108,17.42,0.01105,11.5,0.01,1.02E+00,0.37,3,0.01,0.0432,0.0001,0.0383,0.0001,-6.51,0.00029,-6.152,0.00027
+R(omega),uR(omega),RBCDAcirc(momega),uRBCDAcirc(momega),RCDABcirc(momega),uRCDABcirc(momega),len(mm),ulen(mm),d(A),ud(A),w(mm),uw(mm),RBCDAstd(momega),uRBCDAstd(momega),RCDABstd(momega),uRCDABstd(momega),RACBD+(momega),uRACBD+(momega),RACBD-(momega),uRACBD-(momega)
+1.783,0.00021,351.3,0.03108,17.42,0.01105,11.5,0.01,1018,0.37,3,0.01,0.0432,0.0001,0.0383,0.0001,-6.51,0.00029,-6.152,0.00027
