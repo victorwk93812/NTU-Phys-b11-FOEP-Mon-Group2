@@ -1,0 +1,10 @@
+The resistivity of insect-shape masked Cu film with thickness 1018.0+/-0.4 angstrom is (4.735+/-0.016)e-08 omega m.
+The resistivity of disk shaped Cu film with thickness 1018.0+/-0.4 angstrom is 4.995931156401336e-08 omega m.
+The resistivity of standard Cu sample with thickness 0.1 mm is 1.8446207320166356e-08 omega m.
+The Hall mobility of insect-shape masked Cu film with thickness 0.1 mm is 33.46+/-0.12 cm^2 V^{-1} s^{-1}.
+The carrier concentration of insect-shape masked Cu film with thickness 0.00010180+/-0.00000004 mm is (3.944+/-0.005)e+22 cm^{-3}.
+The resistivity of insect-shape masked Cu film with thickness 304.0+/-0.4 angstrom is (5.494+/-0.020)e-08 omega m.
+The resistivity of disk shaped Cu film with thickness 304.0+/-0.4 angstrom is 6.813121424613251e-08 omega m.
+The resistivity of standard Cu sample with thickness 0.1 mm is 1.8446207320166356e-08 omega m.
+The Hall mobility of insect-shape masked Cu film with thickness 0.1 mm is 26.46+/-0.13 cm^2 V^{-1} s^{-1}.
+The carrier concentration of insect-shape masked Cu film with thickness (3.040+/-0.004)e-05 mm is (4.299+/-0.016)e+22 cm^{-3}.
